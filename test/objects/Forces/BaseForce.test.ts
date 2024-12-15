@@ -47,8 +47,15 @@ describe("BaseForce", () => {
     test("should calculate moment around a point", () => {
       const moment = force.getMomentAround(3, 2);
       // Expected value calculated manually
-      // ...existing code...
-      expect(moment).toBeCloseTo(35.3553);
+      expect(moment.magnitude).toBeCloseTo(-7.07);
+      expect(moment.direction).toBe("cw");
+      expect(moment.location).toBe(3);
+    });
+
+    test("should calculate moment around x-axis", () => {
+      const moment = force.getMomentAround(3) as number;
+      // Expected value calculated manually
+      expect(moment).toBeCloseTo(-21.21);
     });
   });
 });

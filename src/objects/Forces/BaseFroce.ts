@@ -1,3 +1,5 @@
+import Moment from "./Moment";
+
 abstract class BaseForce {
   protected magnitude: number;
   protected angle: number;
@@ -11,12 +13,24 @@ abstract class BaseForce {
     this.x = x;
     this.y = y;
   }
-  getMomentAround(x: number, y: number): number {
-    // Moment = maginitude * perp distance from line of action of force to the point
-    // Total moment = moment of x component + moment of y component
-    const mX = this.getXComponent() * (this.y - y);
-    const mY = this.getYComponent() * (this.x - x);
-    return mX + mY;
+  // Overload signatures
+  getMomentAround(x: number, y: number): Moment;
+  getMomentAround(x: number): number;
+
+  getMomentAround(x: number, y?: number): Moment | number {
+    if (y !== undefined) {
+      // Moment = magnitude * perp distance from line of action of force to the point
+      // Total moment = moment of x component + moment of y component
+      const mX = this.getXComponent() * (this.y - y);
+      const mY = this.getYComponent() * (this.x - x);
+      return new Moment(mY - mX, mY > mX ? "ccw" : "cw", x);
+    } else {
+      // Moment = magnitude * perp distance from line of action of force to the point
+      // Total moment = moment of x component + moment of y component
+      const mX = this.getXComponent() * (this.y - 0); // Assuming y is 0 if not provided
+      const mY = this.getYComponent() * (this.x - x);
+      return mY - mX;
+    }
   }
 
   getXComponent(): number {

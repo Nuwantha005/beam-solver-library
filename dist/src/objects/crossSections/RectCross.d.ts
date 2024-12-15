@@ -7,3 +7,4 @@ export declare class RectangleCrossSection extends BaseSection {
     getInertia(): number;
     getPerimeter(): number;
 }
+export default RectangleCrossSection;

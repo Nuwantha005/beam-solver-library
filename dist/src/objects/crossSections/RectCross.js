@@ -22,3 +22,4 @@ class RectangleCrossSection extends CrossSection_1.BaseSection {
     }
 }
 exports.RectangleCrossSection = RectangleCrossSection;
+exports.default = RectangleCrossSection;

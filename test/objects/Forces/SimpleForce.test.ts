@@ -46,8 +46,15 @@ describe("SimpleForce", () => {
     test("should calculate moment around a point", () => {
       const moment = simpleForce.getMomentAround(1);
       // Expected value calculated manually
-      // ...existing code...
       expect(moment).toBeCloseTo(40);
+    });
+
+    test("should calculate moment around a point with y coordinate", () => {
+      const moment = simpleForce.getMomentAround(1, 2);
+      // Expected values calculated manually
+      expect(moment.magnitude).toBeCloseTo(40);
+      expect(moment.direction).toBe("ccw");
+      expect(moment.location).toBe(1);
     });
   });
 });

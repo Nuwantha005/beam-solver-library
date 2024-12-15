@@ -9,3 +9,4 @@ export declare class ISection extends BaseSection {
     getInertia(): number;
     getPerimeter(): number;
 }
+export default ISection;

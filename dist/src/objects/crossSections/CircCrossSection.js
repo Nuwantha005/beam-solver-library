@@ -21,3 +21,4 @@ class CircularCrossSection extends CrossSection_1.BaseSection {
     }
 }
 exports.CircularCrossSection = CircularCrossSection;
+exports.default = CircularCrossSection;

@@ -14,3 +14,4 @@ export declare class CustomSection extends BaseSection {
     get inertia(): number;
     set inertia(value: number);
 }
+export default CustomSection;

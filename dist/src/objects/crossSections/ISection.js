@@ -32,3 +32,4 @@ class ISection extends CrossSection_1.BaseSection {
     }
 }
 exports.ISection = ISection;
+exports.default = ISection;

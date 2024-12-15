@@ -48,3 +48,5 @@ export class ISection extends BaseSection {
     );
   }
 }
+
+export default ISection;

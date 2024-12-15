@@ -5,7 +5,7 @@ export declare enum CrossSectionType {
     Custom = 3
 }
 export declare abstract class BaseSection {
-    type: CrossSectionType;
+    protected type: CrossSectionType;
     constructor(type: CrossSectionType);
     get sectionType(): CrossSectionType;
     abstract getArea(): number;

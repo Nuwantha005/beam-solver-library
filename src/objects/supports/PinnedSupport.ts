@@ -5,3 +5,5 @@ export class PinnedSupport extends BaseSupport {
     super(location, supportType.pinnedSupport);
   }
 }
+
+export default PinnedSupport;

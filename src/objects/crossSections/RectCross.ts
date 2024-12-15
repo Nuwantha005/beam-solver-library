@@ -23,3 +23,5 @@ export class RectangleCrossSection extends BaseSection {
     return 2 * (this.width + this.height);
   }
 }
+
+export default RectangleCrossSection;

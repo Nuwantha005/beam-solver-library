@@ -49,3 +49,5 @@ export class CustomSection extends BaseSection {
     this._inertia = value;
   }
 }
+
+export default CustomSection;

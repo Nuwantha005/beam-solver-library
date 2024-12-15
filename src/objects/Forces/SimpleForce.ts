@@ -1,4 +1,5 @@
 import BaseForce from "./BaseFroce";
+import Moment from "./Moment";
 
 class SimpleForce extends BaseForce {
   constructor(magnitude: number, direction: "up" | "down", x: number) {
@@ -17,9 +18,17 @@ class SimpleForce extends BaseForce {
     return 0;
   }
 
-  // Overload getMomentAround to only receive x
-  getMomentAround(x: number): number {
-    return super.getMomentAround(x, 0);
+  // Overload signatures
+  getMomentAround(x: number, y: number): Moment;
+  getMomentAround(x: number): number;
+
+  // Single implementation
+  getMomentAround(x: number, y?: number): Moment | number {
+    if (y !== undefined) {
+      return super.getMomentAround(x, y);
+    } else {
+      return super.getMomentAround(x);
+    }
   }
   getXComponent(): number {
     return 0;

@@ -1,1 +1,10 @@
 export * from "./objects/beam";
+export { default as BaseForce } from "./objects/Forces/BaseFroce";
+export { default as SimpleForce } from "./objects/Forces/SimpleForce";
+export * from "./objects/crossSections/CrossSection";
+export { default as CircularCrossSection } from "./objects/crossSections/CircCrossSection";
+export { default as ICrossSection } from "./objects/crossSections/ISection";
+export { default as CustomSection } from "./objects/crossSections/CustomSection";
+export { default as RectangularCrossSection } from "./objects/crossSections/RectCross";
+export * from "./objects/supports/BaseSupport";
+export { default as PinnedSupport } from "./objects/supports/PinnedSupport";

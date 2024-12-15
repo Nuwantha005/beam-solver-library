@@ -39,3 +39,4 @@ class CustomSection extends CrossSection_1.BaseSection {
     }
 }
 exports.CustomSection = CustomSection;
+exports.default = CustomSection;

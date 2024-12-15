@@ -6,3 +6,4 @@ export declare class CircularCrossSection extends BaseSection {
     getInertia(): number;
     getPerimeter(): number;
 }
+export default CircularCrossSection;

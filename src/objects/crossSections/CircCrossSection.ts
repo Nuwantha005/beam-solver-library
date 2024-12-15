@@ -21,3 +21,5 @@ export class CircularCrossSection extends BaseSection {
     return 2 * Math.PI * this.radius;
   }
 }
+
+export default CircularCrossSection;
