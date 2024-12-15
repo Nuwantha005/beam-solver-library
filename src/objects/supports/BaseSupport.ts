@@ -1,3 +1,5 @@
+import BaseReaction from "../Forces/reactions/BaseReaction";
+
 export enum supportType {
   pinnedSupport,
   rollerSupport,
@@ -13,10 +15,17 @@ export abstract class BaseSupport {
     this._loc = location;
     this._supportType = supportType;
   }
+  get SupportType() {
+    return this._supportType;
+  }
+
   get Location() {
     return this._loc;
   }
   set Location(loc: number) {
     this._loc = loc;
   }
+
+  abstract get Reaction(): BaseReaction;
+  abstract set Reaction(reaction: BaseReaction);
 }

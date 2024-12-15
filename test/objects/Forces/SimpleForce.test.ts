@@ -54,7 +54,8 @@ describe("SimpleForce", () => {
       // Expected values calculated manually
       expect(moment.magnitude).toBeCloseTo(40);
       expect(moment.direction).toBe("ccw");
-      expect(moment.location).toBe(1);
+      expect(moment.x).toBe(1);
+      expect(moment.y).toBe(2);
     });
   });
 });

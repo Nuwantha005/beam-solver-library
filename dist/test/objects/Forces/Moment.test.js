@@ -9,7 +9,7 @@ describe("BaseMoment", () => {
         const moment = new Moment_1.default(10, "cw", 5);
         expect(moment.magnitude).toBe(10);
         expect(moment.direction).toBe("cw");
-        expect(moment.location).toBe(5);
+        expect(moment.x).toBe(5);
     });
     it("should set and get magnitude correctly", () => {
         const moment = new Moment_1.default(10, "cw", 5);
@@ -23,7 +23,10 @@ describe("BaseMoment", () => {
     });
     it("should set and get location correctly", () => {
         const moment = new Moment_1.default(10, "cw", 5);
-        moment.location = 15;
-        expect(moment.location).toBe(15);
+        expect(moment.y).toBe(0);
+        moment.x = 15;
+        moment.y = 3;
+        expect(moment.x).toBe(15);
+        expect(moment.y).toBe(3);
     });
 });

@@ -49,7 +49,8 @@ describe("BaseForce", () => {
       // Expected value calculated manually
       expect(moment.magnitude).toBeCloseTo(-7.07);
       expect(moment.direction).toBe("cw");
-      expect(moment.location).toBe(3);
+      expect(moment.x).toBe(3);
+      expect(moment.y).toBe(2);
     });
 
     test("should calculate moment around x-axis", () => {

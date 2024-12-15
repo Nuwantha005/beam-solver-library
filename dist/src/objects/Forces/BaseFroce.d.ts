@@ -1,5 +1,6 @@
 import Moment from "./Moment";
-declare abstract class BaseForce {
+import { IForce } from "./IForce";
+declare abstract class BaseForce implements IForce {
     protected magnitude: number;
     protected angle: number;
     protected x: number;

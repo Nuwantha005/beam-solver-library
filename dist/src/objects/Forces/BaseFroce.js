@@ -17,7 +17,7 @@ class BaseForce {
             // Total moment = moment of x component + moment of y component
             const mX = this.getXComponent() * (this.y - y);
             const mY = this.getYComponent() * (this.x - x);
-            return new Moment_1.default(mY - mX, mY > mX ? "ccw" : "cw", x);
+            return new Moment_1.default(mY - mX, mY > mX ? "ccw" : "cw", x, y);
         }
         else {
             // Moment = magnitude * perp distance from line of action of force to the point

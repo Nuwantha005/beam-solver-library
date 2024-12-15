@@ -1,12 +1,19 @@
 class Moment {
   private _magnitude: number;
   private _direction: "cw" | "ccw";
-  private _location: number;
+  private _x: number;
+  private _y: number;
 
-  constructor(magnitude: number, direction: "cw" | "ccw", location: number) {
+  constructor(
+    magnitude: number,
+    direction: "cw" | "ccw",
+    x: number,
+    y: number = 0
+  ) {
     this._magnitude = magnitude;
     this._direction = direction;
-    this._location = location;
+    this._x = x;
+    this._y = y;
   }
 
   // Getter for magnitude
@@ -29,14 +36,24 @@ class Moment {
     this._direction = value;
   }
 
-  // Getter for location
-  get location(): number {
-    return this._location;
+  // Getter for x
+  get x(): number {
+    return this._x;
   }
 
-  // Setter for location
-  set location(value: number) {
-    this._location = value;
+  // Setter for x
+  set x(value: number) {
+    this._x = value;
+  }
+
+  // Getter for y
+  get y(): number {
+    return this._y;
+  }
+
+  // Setter for y
+  set y(value: number) {
+    this._y = value;
   }
 }
 

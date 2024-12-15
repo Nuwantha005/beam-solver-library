@@ -13,6 +13,9 @@ class BaseSupport {
         this._loc = location;
         this._supportType = supportType;
     }
+    get SupportType() {
+        return this._supportType;
+    }
     get Location() {
         return this._loc;
     }

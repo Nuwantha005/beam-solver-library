@@ -1,6 +1,7 @@
 import Moment from "./Moment";
+import { IForce } from "./IForce";
 
-abstract class BaseForce {
+abstract class BaseForce implements IForce {
   protected magnitude: number;
   protected angle: number;
   // acting point
@@ -23,7 +24,7 @@ abstract class BaseForce {
       // Total moment = moment of x component + moment of y component
       const mX = this.getXComponent() * (this.y - y);
       const mY = this.getYComponent() * (this.x - x);
-      return new Moment(mY - mX, mY > mX ? "ccw" : "cw", x);
+      return new Moment(mY - mX, mY > mX ? "ccw" : "cw", x, y);
     } else {
       // Moment = magnitude * perp distance from line of action of force to the point
       // Total moment = moment of x component + moment of y component

@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Moment {
-    constructor(magnitude, direction, location) {
+    constructor(magnitude, direction, x, y = 0) {
         this._magnitude = magnitude;
         this._direction = direction;
-        this._location = location;
+        this._x = x;
+        this._y = y;
     }
     // Getter for magnitude
     get magnitude() {
@@ -22,13 +23,21 @@ class Moment {
     set direction(value) {
         this._direction = value;
     }
-    // Getter for location
-    get location() {
-        return this._location;
+    // Getter for x
+    get x() {
+        return this._x;
     }
-    // Setter for location
-    set location(value) {
-        this._location = value;
+    // Setter for x
+    set x(value) {
+        this._x = value;
+    }
+    // Getter for y
+    get y() {
+        return this._y;
+    }
+    // Setter for y
+    set y(value) {
+        this._y = value;
     }
 }
 exports.default = Moment;
