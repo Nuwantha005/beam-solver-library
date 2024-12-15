@@ -1,12 +1,26 @@
+import { CrossSection } from "./crossSections/CrossSection";
+import { CustomSection } from "./crossSections/CustomSection";
+
 export class Beam {
   private _length: number;
   private _eModulus: number = 0; // Initialize with a default value
+  private _crossSection: CrossSection = new CustomSection();
 
-  constructor(length: number, EModulus?: number) {
+  constructor(length: number, EModulus?: number, crossSection?: CrossSection) {
     this._length = length;
     if (EModulus !== undefined) {
       this._eModulus = EModulus;
     }
+    if (crossSection !== undefined) {
+      this._crossSection = crossSection;
+    }
+  }
+  get crossSection(): CrossSection {
+    return this._crossSection;
+  }
+
+  set crossSection(value: CrossSection) {
+    this._crossSection = value;
   }
 
   get Length(): number {

@@ -2,15 +2,19 @@ export enum CrossSectionType {
   Rectangle,
   Circular,
   ISection,
-  Square,
+  Custom,
   // ...add other types as needed...
 }
 
-export abstract class CrossSections {
+export abstract class CrossSection {
   type: CrossSectionType;
 
   constructor(type: CrossSectionType) {
     this.type = type;
+  }
+
+  get sectionType() {
+    return this.type;
   }
 
   abstract getArea(): number;

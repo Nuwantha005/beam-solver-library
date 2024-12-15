@@ -1,6 +1,6 @@
-import { CrossSectionType, CrossSections } from "./CrossSection";
+import { CrossSectionType, CrossSection } from "./CrossSection";
 
-export class ISection extends CrossSections {
+export class ISection extends CrossSection {
   width: number;
   height: number;
   flangeThickness: number;
