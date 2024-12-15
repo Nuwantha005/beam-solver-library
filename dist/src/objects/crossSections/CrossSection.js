@@ -1,17 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CrossSections = exports.CrossSectionType = void 0;
+exports.BaseSection = exports.CrossSectionType = void 0;
 var CrossSectionType;
 (function (CrossSectionType) {
     CrossSectionType[CrossSectionType["Rectangle"] = 0] = "Rectangle";
     CrossSectionType[CrossSectionType["Circular"] = 1] = "Circular";
     CrossSectionType[CrossSectionType["ISection"] = 2] = "ISection";
-    CrossSectionType[CrossSectionType["Square"] = 3] = "Square";
+    CrossSectionType[CrossSectionType["Custom"] = 3] = "Custom";
     // ...add other types as needed...
 })(CrossSectionType || (exports.CrossSectionType = CrossSectionType = {}));
-class CrossSections {
+class BaseSection {
     constructor(type) {
         this.type = type;
     }
+    get sectionType() {
+        return this.type;
+    }
 }
-exports.CrossSections = CrossSections;
+exports.BaseSection = BaseSection;

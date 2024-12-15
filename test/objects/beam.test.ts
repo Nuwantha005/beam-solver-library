@@ -37,7 +37,7 @@ describe("Beam - base class tests", () => {
   });
 });
 
-describe("Beam - cross section tests", () => {
+describe("Beam: cross section tests", () => {
   test("Custom cross section should be set correctly", () => {
     const beam = new Beam(10, 100);
     const customSection = new CustomSection(20, 30, 40);

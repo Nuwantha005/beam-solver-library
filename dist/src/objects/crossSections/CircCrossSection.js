@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CircularCrossSection = void 0;
 const CrossSection_1 = require("./CrossSection");
-class CircularCrossSection extends CrossSection_1.CrossSections {
+class CircularCrossSection extends CrossSection_1.BaseSection {
     constructor(radius) {
         super(CrossSection_1.CrossSectionType.Circular);
         if (radius <= 0) {

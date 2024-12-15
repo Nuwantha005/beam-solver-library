@@ -1,5 +1,5 @@
-import { CrossSections } from "./CrossSection";
-export declare class CircularCrossSection extends CrossSections {
+import { BaseSection } from "./CrossSection";
+export declare class CircularCrossSection extends BaseSection {
     radius: number;
     constructor(radius: number);
     getArea(): number;

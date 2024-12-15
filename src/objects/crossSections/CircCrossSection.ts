@@ -1,6 +1,6 @@
-import { CrossSection, CrossSectionType } from "./CrossSection";
+import { BaseSection, CrossSectionType } from "./CrossSection";
 
-export class CircularCrossSection extends CrossSection {
+export class CircularCrossSection extends BaseSection {
   radius: number;
 
   constructor(radius: number) {

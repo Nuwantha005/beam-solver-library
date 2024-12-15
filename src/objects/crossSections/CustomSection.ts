@@ -1,7 +1,7 @@
-import { CrossSection } from "./CrossSection";
+import { BaseSection } from "./CrossSection";
 import { CrossSectionType } from "./CrossSection";
 
-export class CustomSection extends CrossSection {
+export class CustomSection extends BaseSection {
   private _area: number;
   private _perimeter: number;
   private _inertia: number;

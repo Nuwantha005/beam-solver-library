@@ -6,8 +6,8 @@ export enum CrossSectionType {
   // ...add other types as needed...
 }
 
-export abstract class CrossSection {
-  type: CrossSectionType;
+export abstract class BaseSection {
+  protected type: CrossSectionType;
 
   constructor(type: CrossSectionType) {
     this.type = type;

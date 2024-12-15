@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ISection = void 0;
 const CrossSection_1 = require("./CrossSection");
-class ISection extends CrossSection_1.CrossSections {
+class ISection extends CrossSection_1.BaseSection {
     constructor(width, height, flangeThickness, webThickness) {
         super(CrossSection_1.CrossSectionType.ISection);
         if (width <= 0 ||

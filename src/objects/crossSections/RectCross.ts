@@ -1,6 +1,6 @@
-import { CrossSection, CrossSectionType } from "./CrossSection";
+import { BaseSection, CrossSectionType } from "./CrossSection";
 
-export class RectangleCrossSection extends CrossSection {
+export class RectangleCrossSection extends BaseSection {
   width: number;
   height: number;
 
