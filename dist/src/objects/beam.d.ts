@@ -1,10 +1,9 @@
 export declare class Beam {
-    length: number;
-    forces: {
-        position: number;
-        magnitude: number;
-    }[];
-    constructor(length: number);
-    addForce(position: number, magnitude: number): void;
-    calculateBendingMoment(): number[];
+    private _length;
+    private _eModulus;
+    constructor(length: number, EModulus?: number);
+    get Length(): number;
+    set Length(value: number);
+    get EModulus(): number;
+    set EModulus(value: number);
 }

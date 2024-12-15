@@ -1,21 +1,35 @@
 export class Beam {
-  length: number;
-  forces: { position: number; magnitude: number }[];
+  private _length: number;
+  private _eModulus: number = 0; // Initialize with a default value
 
-  constructor(length: number) {
-    this.length = length;
-    this.forces = [];
-  }
-
-  addForce(position: number, magnitude: number) {
-    if (position < 0 || position > this.length) {
-      throw new Error("Force position is out of bounds.");
+  constructor(length: number, EModulus?: number) {
+    this._length = length;
+    if (EModulus !== undefined) {
+      this._eModulus = EModulus;
     }
-    this.forces.push({ position, magnitude });
   }
 
-  calculateBendingMoment() {
-    // Add bending moment calculations here
-    return this.forces.map((f) => f.magnitude * f.position);
+  get Length(): number {
+    return this._length;
   }
+
+  set Length(value: number) {
+    if (value <= 0) {
+      throw new Error("Length must be positive.");
+    }
+    this._length = value;
+  }
+
+  get EModulus(): number {
+    return this._eModulus;
+  }
+
+  set EModulus(value: number) {
+    if (value <= 0) {
+      throw new Error("EModulus must be positive.");
+    }
+    this._eModulus = value;
+  }
+
+  // ...existing code (other methods without 'forces')...
 }
