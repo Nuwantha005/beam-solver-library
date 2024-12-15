@@ -5,9 +5,9 @@ class Moment {
   private _y: number;
 
   constructor(
-    magnitude: number,
-    direction: "cw" | "ccw",
-    x: number,
+    magnitude: number = 0,
+    direction: "cw" | "ccw" = "ccw",
+    x: number = 0,
     y: number = 0
   ) {
     this._magnitude = magnitude;

@@ -42,18 +42,23 @@ class Beam {
                 hasSupportsAtEnd = true;
             }
         });
-        if (hasPinnedSupport && !hasRollerSupport && !hasFixedSupport) {
-            type = BeamType.SIMPLY_SUPPORTED;
+        if (this._supports.length > 2) {
+            type = BeamType.CONTINUOUS;
         }
-        else if (hasPinnedSupport && hasRollerSupport && !hasFixedSupport) {
-            type = BeamType.ROLLER_SUPPORTED;
-        }
-        else if ((hasFixedSupport && !hasSupportAtStart) ||
-            (hasFixedSupport && !hasSupportsAtEnd)) {
-            type = BeamType.CANTELIVER;
-        }
-        else if (hasFixedSupport) {
-            type = BeamType.FIXED;
+        else {
+            if (hasPinnedSupport && !hasRollerSupport && !hasFixedSupport) {
+                type = BeamType.SIMPLY_SUPPORTED;
+            }
+            else if (hasPinnedSupport && hasRollerSupport && !hasFixedSupport) {
+                type = BeamType.ROLLER_SUPPORTED;
+            }
+            else if ((hasFixedSupport && !hasSupportAtStart) ||
+                (hasFixedSupport && !hasSupportsAtEnd)) {
+                type = BeamType.CANTELIVER;
+            }
+            else if (hasFixedSupport) {
+                type = BeamType.FIXED;
+            }
         }
         return type;
     }
@@ -113,5 +118,6 @@ var BeamType;
     BeamType[BeamType["CANTELIVER"] = 1] = "CANTELIVER";
     BeamType[BeamType["ROLLER_SUPPORTED"] = 2] = "ROLLER_SUPPORTED";
     BeamType[BeamType["FIXED"] = 3] = "FIXED";
-    BeamType[BeamType["NONE"] = 4] = "NONE";
+    BeamType[BeamType["CONTINUOUS"] = 4] = "CONTINUOUS";
+    BeamType[BeamType["NONE"] = 5] = "NONE";
 })(BeamType || (exports.BeamType = BeamType = {}));

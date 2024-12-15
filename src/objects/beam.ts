@@ -45,18 +45,23 @@ export class Beam {
       }
     });
 
-    if (hasPinnedSupport && !hasRollerSupport && !hasFixedSupport) {
-      type = BeamType.SIMPLY_SUPPORTED;
-    } else if (hasPinnedSupport && hasRollerSupport && !hasFixedSupport) {
-      type = BeamType.ROLLER_SUPPORTED;
-    } else if (
-      (hasFixedSupport && !hasSupportAtStart) ||
-      (hasFixedSupport && !hasSupportsAtEnd)
-    ) {
-      type = BeamType.CANTELIVER;
-    } else if (hasFixedSupport) {
-      type = BeamType.FIXED;
+    if (this._supports.length > 2) {
+      type = BeamType.CONTINUOUS;
+    } else {
+      if (hasPinnedSupport && !hasRollerSupport && !hasFixedSupport) {
+        type = BeamType.SIMPLY_SUPPORTED;
+      } else if (hasPinnedSupport && hasRollerSupport && !hasFixedSupport) {
+        type = BeamType.ROLLER_SUPPORTED;
+      } else if (
+        (hasFixedSupport && !hasSupportAtStart) ||
+        (hasFixedSupport && !hasSupportsAtEnd)
+      ) {
+        type = BeamType.CANTELIVER;
+      } else if (hasFixedSupport) {
+        type = BeamType.FIXED;
+      }
     }
+
     return type;
   }
 
@@ -130,5 +135,6 @@ export enum BeamType {
   CANTELIVER,
   ROLLER_SUPPORTED,
   FIXED,
+  CONTINUOUS,
   NONE,
 }

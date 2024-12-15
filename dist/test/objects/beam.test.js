@@ -9,6 +9,7 @@ const ISection_1 = require("../../src/objects/crossSections/ISection");
 const CircCrossSection_1 = require("../../src/objects/crossSections/CircCrossSection");
 const src_1 = require("../../src");
 const src_2 = require("../../src");
+const beam_2 = require("../../src/objects/beam");
 /*
 ###############################################
             Base Class Testing
@@ -178,5 +179,21 @@ const src_2 = require("../../src");
         beam.addSupport(pinnedSupport);
         beam.removeSupports();
         expect(beam.getSupports()).toEqual([]);
+    });
+    test("Testing for beamType -> Simply Supported", () => {
+        beam = new beam_1.Beam(10); // Create a beam of length 10
+        const startSupport = new src_2.PinnedSupport(0); // Add a pinned support at position 0
+        const endSupport = new src_2.PinnedSupport(10);
+        beam.setSupports([startSupport, endSupport]);
+        expect(beam.getBeamType()).toBe(beam_2.BeamType.SIMPLY_SUPPORTED);
+    });
+    test("Testing for beamType -> Continuous", () => {
+        beam = new beam_1.Beam(10); // Create a beam of length 10
+        const startSupport = new src_2.PinnedSupport(0); // Add a pinned support at position 0
+        const midSupport = new src_2.PinnedSupport(5);
+        const endSupport = new src_2.PinnedSupport(10);
+        beam.setSupports([startSupport, midSupport]);
+        beam.addSupport(endSupport);
+        expect(beam.getBeamType()).toBe(beam_2.BeamType.CONTINUOUS);
     });
 });

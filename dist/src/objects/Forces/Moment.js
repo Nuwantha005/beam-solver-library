@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Moment {
-    constructor(magnitude, direction, x, y = 0) {
+    constructor(magnitude = 0, direction = "ccw", x = 0, y = 0) {
         this._magnitude = magnitude;
         this._direction = direction;
         this._x = x;

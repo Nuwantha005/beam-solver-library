@@ -29,5 +29,6 @@ export declare enum BeamType {
     CANTELIVER = 1,
     ROLLER_SUPPORTED = 2,
     FIXED = 3,
-    NONE = 4
+    CONTINUOUS = 4,
+    NONE = 5
 }

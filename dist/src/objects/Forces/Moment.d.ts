@@ -3,7 +3,7 @@ declare class Moment {
     private _direction;
     private _x;
     private _y;
-    constructor(magnitude: number, direction: "cw" | "ccw", x: number, y?: number);
+    constructor(magnitude?: number, direction?: "cw" | "ccw", x?: number, y?: number);
     get magnitude(): number;
     set magnitude(value: number);
     get direction(): "cw" | "ccw";

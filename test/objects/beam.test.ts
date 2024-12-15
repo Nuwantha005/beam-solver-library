@@ -7,6 +7,7 @@ import { ISection } from "../../src/objects/crossSections/ISection";
 import { CircularCrossSection } from "../../src/objects/crossSections/CircCrossSection";
 import { SimpleForce } from "../../src";
 import { PinnedSupport } from "../../src";
+import { BeamType } from "../../src/objects/beam";
 
 /*
 ###############################################
@@ -205,5 +206,25 @@ describe("Beam: support tests", () => {
     beam.addSupport(pinnedSupport);
     beam.removeSupports();
     expect(beam.getSupports()).toEqual([]);
+  });
+
+  test("Testing for beamType -> Simply Supported", () => {
+    beam = new Beam(10); // Create a beam of length 10
+    const startSupport = new PinnedSupport(0); // Add a pinned support at position 0
+    const endSupport = new PinnedSupport(10);
+
+    beam.setSupports([startSupport, endSupport]);
+    expect(beam.getBeamType()).toBe(BeamType.SIMPLY_SUPPORTED);
+  });
+
+  test("Testing for beamType -> Continuous", () => {
+    beam = new Beam(10); // Create a beam of length 10
+    const startSupport = new PinnedSupport(0); // Add a pinned support at position 0
+    const midSupport = new PinnedSupport(5);
+    const endSupport = new PinnedSupport(10);
+
+    beam.setSupports([startSupport, midSupport]);
+    beam.addSupport(endSupport);
+    expect(beam.getBeamType()).toBe(BeamType.CONTINUOUS);
   });
 });
