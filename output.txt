@@ -1,0 +1,87 @@
+npm init -y
+npm install typescript --save-dev
+npm install ts-node --save-dev
+npm install @types/node --save-dev
+npx tsc --init
+npx tsc
+npm install jest ts-jest @types/jest --save-dev
+doskey /history > output.txt
+
+
+Microsoft Windows [Version 10.0.22631.4602]
+(c) Microsoft Corporation. All rights reserved.
+
+D:\Documents\Web Development\Side Projects\Beam Library>npm init -y
+Wrote to D:\Documents\Web Development\Side Projects\Beam Library\package.json:
+
+{
+  "name": "beam-library",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+
+
+
+
+D:\Documents\Web Development\Side Projects\Beam Library>npm install typescript --save-dev
+
+added 1 package, and audited 2 packages in 1m
+
+found 0 vulnerabilities
+
+D:\Documents\Web Development\Side Projects\Beam Library>npm install ts-node --save-dev
+
+added 19 packages, and audited 21 packages in 2m
+
+found 0 vulnerabilities
+
+D:\Documents\Web Development\Side Projects\Beam Library>npm install @types/node --save-dev
+
+up to date, audited 21 packages in 4s
+
+found 0 vulnerabilities
+
+D:\Documents\Web Development\Side Projects\Beam Library>npx tsc --init
+
+Created a new tsconfig.json with:
+                                                                                                                     TS
+  target: es2016
+  module: commonjs
+  strict: true
+  esModuleInterop: true
+  skipLibCheck: true
+  forceConsistentCasingInFileNames: true
+
+
+You can learn more at https://aka.ms/tsconfig
+
+D:\Documents\Web Development\Side Projects\Beam Library>npx tsc
+error TS18003: No inputs were found in config file 'D:/Documents/Web Development/Side Projects/Beam Library/tsconfig.json'. Specified 'include' paths were '["**/*"]' and 'exclude' paths were '[]'.
+
+
+Found 1 error.
+
+
+D:\Documents\Web Development\Side Projects\Beam Library>npm install jest ts-jest @types/jest --save-dev
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 279 packages, and audited 300 packages in 5m
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+D:\Documents\Web Development\Side Projects\Beam Library>doskey /history > output.txt
+
+D:\Documents\Web Development\Side Projects\Beam Library>output.txt
+
+D:\Documents\Web Development\Side Projects\Beam Library>
