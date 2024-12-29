@@ -2,8 +2,6 @@ import { Beam, BeamType } from "../objects/beam";
 import BaseForce from "../objects/Forces/BaseFroce";
 import Moment from "../objects/Forces/Moment";
 import { ISolver } from "./ISolver";
-import DoubleReaction from "../objects/Forces/reactions/DoubleReaction";
-import { matrix, lusolve } from "mathjs";
 
 export abstract class BaseSolver implements ISolver {
   protected beam_: Beam;
@@ -29,18 +27,6 @@ export abstract class BaseSolver implements ISolver {
     return true;
   }
 
-  static solveLinearSystem(A: number[][], b: number[]): number[] {
-    // Convert input to math.js matrix format
-    const coeffMatrix = matrix(A);
-    const solVector = matrix(b);
-
-    // Solve the system
-    const solution = lusolve(coeffMatrix, solVector);
-
-    // Convert solution to array and return
-    return (solution.toArray() as number[][]).flat(); // Flatten nested array
-  }
-
   // Fails for beams with more than 2 supports -> Because they are statically indetermine ???
   //
   solveReactions(): boolean {
@@ -51,37 +37,22 @@ export abstract class BaseSolver implements ISolver {
         (sum, force) => sum + force.getMagnitude(),
         0
       );
+      const magSum = forces.reduce(
+        (sum, force) => sum + force.getMomentAround(supports[0].Location),
+        0
+      );
+      let r2: number = magSum / this.beam_.Length;
+      let r1: number = forceSum - r2;
 
-      const length = this.beam_.Length;
-      let eqR1 = new Array(supports.length).fill(1);
-      let equations = [eqR1];
-      for (let j = 0; j < supports.length - 1; j++) {
-        let eqR = [];
-        for (let i = 0; i < supports.length; i++) {
-          eqR.push(supports[i].Location - supports[j].Location);
-        }
-        equations.push(eqR);
-      }
-      const lhs = [forceSum];
-      for (let j = 0; j < supports.length - 1; j++) {
-        const magSum = forces.reduce(
-          (sum, force) => sum + force.getMomentAround(supports[j].Location),
-          0
-        );
-        lhs.push(magSum);
-      }
-
-      const reactionResults = BaseSolver.solveLinearSystem(equations, lhs);
-      console.log("equations", equations);
-      console.log("lhs", lhs);
-      console.log("results", reactionResults);
-      for (let j = 0; j < supports.length; j++) {
-        const reaction = supports[j].Reaction as DoubleReaction;
-        reaction.setMagnitude(reactionResults[j]);
-      }
+      supports[0].Reaction.setMagnitude(r1);
+      supports[1].Reaction.setMagnitude(r2);
       return true;
+    } else {
+      console.log(
+        "Solving reactions for statically indeterminate beams is not supported yet."
+      );
+      return false;
     }
-    return true;
   }
 
   get beam(): Beam {

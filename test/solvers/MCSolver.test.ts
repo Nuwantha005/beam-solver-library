@@ -1,7 +1,6 @@
 import { Beam } from "../../src/objects/beam";
 import { PinnedSupport } from "../../src/objects/supports/PinnedSupport";
 import { MCSolver } from "../../src/solvers/MCSolver";
-import DoubleReaction from "../../src/objects/Forces/reactions/DoubleReaction";
 import { SimpleForce } from "../../src";
 
 describe("simple beam with two pinned supports -> middle load", () => {
@@ -17,11 +16,11 @@ describe("simple beam with two pinned supports -> middle load", () => {
     solver.solveReactions();
   });
   it("Start Reaction", () => {
-    const startReaction = beam.getSupports()[0].Reaction as DoubleReaction; // Get the reaction at the start of the beam
+    const startReaction = beam.getSupports()[0].Reaction as SimpleForce; // Get the reaction at the start of the beam
     expect(startReaction.getMagnitude()).toBeCloseTo(2.5, 0.01); // Check the reaction magnitude
   });
   it("End Reaction", () => {
-    const endReaction = beam.getSupports()[1].Reaction as DoubleReaction; // Get the reaction at the end of the beam
+    const endReaction = beam.getSupports()[1].Reaction as SimpleForce; // Get the reaction at the end of the beam
     expect(endReaction.getMagnitude()).toBeCloseTo(2.5, 0.01); // Check the reaction magnitude
   });
 });
@@ -39,11 +38,11 @@ describe("simple beam with two pinned supports -> deviated load", () => {
     solver.solveReactions();
   });
   it("Start Reaction", () => {
-    const startReaction = beam.getSupports()[0].Reaction as DoubleReaction; // Get the reaction at the start of the beam
+    const startReaction = beam.getSupports()[0].Reaction as SimpleForce; // Get the reaction at the start of the beam
     expect(startReaction.getMagnitude()).toBeCloseTo(2.8848, 0.0001); // Check the reaction magnitude
   });
   it("End Reaction", () => {
-    const endReaction = beam.getSupports()[1].Reaction as DoubleReaction; // Get the reaction at the end of the beam
+    const endReaction = beam.getSupports()[1].Reaction as SimpleForce; // Get the reaction at the end of the beam
     expect(endReaction.getMagnitude()).toBeCloseTo(3.6152, 0.0001); // Check the reaction magnitude
   });
 });

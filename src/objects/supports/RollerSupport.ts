@@ -1,19 +1,25 @@
-import BaseReaction from "../Forces/reactions/BaseReaction";
-import SimpleReaction from "../Forces/reactions/SimpleReaction";
+import SimpleForce from "../Forces/SimpleForce";
 import { BaseSupport, supportType } from "./BaseSupport";
+import Moment from "../Forces/Moment";
 
 export class RollerSupport extends BaseSupport {
+  private _reaction: SimpleForce;
   constructor(location: number) {
-    super(location, supportType.rollerSupport);
-    this._reaction = new SimpleReaction(0, "up", 0);
+    super(location, supportType.ROLLER, new Moment(0, "cw", 0, 0));
+    this._reaction = new SimpleForce(0, "up", location);
   }
-  get Reaction(): BaseReaction {
+  get Reaction(): SimpleForce {
     return this._reaction;
   }
-  set Reaction(reaction: SimpleReaction) {
+  set Reaction(reaction: SimpleForce) {
     this._reaction = reaction;
   }
-  private _reaction: SimpleReaction;
+  get Moment(): Moment {
+    return this.Moment;
+  }
+  set Moment(moment: Moment) {
+    //
+  }
 }
 
 export default RollerSupport;

@@ -1,6 +1,6 @@
 import PinnedSupport from "../../../src/objects/supports/PinnedSupport";
-import DoubleReaction from "../../../src/objects/Forces/reactions/DoubleReaction";
 import { supportType } from "../../../src";
+import Force2D from "../../../src/objects/Forces/Force2D";
 
 describe("PinnedSupport", () => {
   it("should create a PinnedSupport with the correct location and reaction", () => {
@@ -8,13 +8,13 @@ describe("PinnedSupport", () => {
     const pinnedSupport = new PinnedSupport(location);
 
     expect(pinnedSupport.Location).toBe(location);
-    expect(pinnedSupport.Reaction).toBeInstanceOf(DoubleReaction);
+    expect(pinnedSupport.Reaction).toBeInstanceOf(Force2D);
   });
 
   it("should set and get the reaction correctly", () => {
     const location = 10;
     const pinnedSupport = new PinnedSupport(location);
-    const newReaction = new DoubleReaction(1, 2, 3, 4);
+    const newReaction = new Force2D(1, 2, 3);
 
     pinnedSupport.Reaction = newReaction;
 
@@ -25,6 +25,6 @@ describe("PinnedSupport", () => {
     const location = 10;
     const pinnedSupport = new PinnedSupport(location);
 
-    expect(pinnedSupport.SupportType).toBe(supportType.pinnedSupport);
+    expect(pinnedSupport.SupportType).toBe(supportType.PINNED);
   });
 });

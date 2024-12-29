@@ -1,5 +1,5 @@
+import { SimpleForce } from "../../../src";
 import RollerSupport from "../../../src/objects/supports/RollerSupport";
-import SimpleReaction from "../../../src/objects/Forces/reactions/SimpleReaction";
 
 describe("RollerSupport", () => {
   it("should create a RollerSupport instance with correct location and reaction", () => {
@@ -7,7 +7,7 @@ describe("RollerSupport", () => {
     const rollerSupport = new RollerSupport(location);
 
     expect(rollerSupport.Location).toBe(location);
-    expect(rollerSupport.Reaction).toBeInstanceOf(SimpleReaction);
+    expect(rollerSupport.Reaction).toBeInstanceOf(SimpleForce);
     expect(rollerSupport.Reaction.getDirection()).toBe(90);
     expect(rollerSupport.Reaction.getMagnitude()).toBe(0);
   });
@@ -15,7 +15,7 @@ describe("RollerSupport", () => {
   it("should allow setting a new reaction", () => {
     const location = 10;
     const rollerSupport = new RollerSupport(location);
-    const newReaction = new SimpleReaction(5, "down", 10);
+    const newReaction = new SimpleForce(5, "down", 10);
 
     rollerSupport.Reaction = newReaction;
 

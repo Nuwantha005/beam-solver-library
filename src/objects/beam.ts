@@ -30,11 +30,11 @@ export class Beam {
     let hasSupportAtStart = false;
 
     this._supports.forEach((support) => {
-      if (support.SupportType === supportType.pinnedSupport) {
+      if (support.SupportType === supportType.PINNED) {
         hasPinnedSupport = true;
-      } else if (support.SupportType === supportType.rollerSupport) {
+      } else if (support.SupportType === supportType.ROLLER) {
         hasRollerSupport = true;
-      } else if (support.SupportType === supportType.fixedSupport) {
+      } else if (support.SupportType === supportType.FIXED) {
         hasFixedSupport = true;
       }
       if (support.Location == 0) {

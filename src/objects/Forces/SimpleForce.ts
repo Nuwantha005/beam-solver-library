@@ -36,6 +36,19 @@ class SimpleForce extends BaseForce {
   getYComponent(): number {
     return this.magnitude;
   }
+
+  setMagnitude(magnitude: number): void {
+    if (magnitude > 0) {
+      this.magnitude = magnitude;
+      this.setDirection(90);
+    } else if (magnitude == 0) {
+      this.magnitude = 0;
+      this.setDirection(0);
+    } else {
+      this.magnitude = -1 * magnitude;
+      this.setDirection(-90);
+    }
+  }
 }
 
 export default SimpleForce;
