@@ -32,7 +32,7 @@ export abstract class BaseSolver implements ISolver {
   solveReactions(): boolean {
     const supports = this.beam_.getSupports();
     const forces = this.beam_.getForces();
-    if (this.beam_.getBeamType() == BeamType.SIMPLY_SUPPORTED) {
+    if (this.beam_.BeamType == BeamType.SIMPLY_SUPPORTED) {
       const forceSum = forces.reduce(
         (sum, force) => sum + force.getMagnitude(),
         0

@@ -20,7 +20,7 @@ export class Beam {
     }
   }
 
-  getBeamType(): BeamType {
+  get BeamType(): BeamType {
     // if only has pinned supoorts, its simply supported beam
     let type: BeamType = BeamType.NONE;
     let hasPinnedSupport = false;

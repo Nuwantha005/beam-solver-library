@@ -214,7 +214,7 @@ describe("Beam: support tests", () => {
     const endSupport = new PinnedSupport(10);
 
     beam.setSupports([startSupport, endSupport]);
-    expect(beam.getBeamType()).toBe(BeamType.SIMPLY_SUPPORTED);
+    expect(beam.BeamType).toBe(BeamType.SIMPLY_SUPPORTED);
   });
 
   test("Testing for beamType -> Continuous", () => {
@@ -225,6 +225,6 @@ describe("Beam: support tests", () => {
 
     beam.setSupports([startSupport, midSupport]);
     beam.addSupport(endSupport);
-    expect(beam.getBeamType()).toBe(BeamType.CONTINUOUS);
+    expect(beam.BeamType).toBe(BeamType.CONTINUOUS);
   });
 });

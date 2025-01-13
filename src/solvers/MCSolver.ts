@@ -14,7 +14,9 @@ export class MCSolver extends BaseSolver {
   solve(): boolean {
     const L = this.beam_.Length;
     const EI = this.beam_.EModulus * this.beam_.crossSection.getInertia();
-
+    ``;
+    if (this.beam_.BeamType == BeamType.SIMPLY_SUPPORTED) {
+    }
     return true;
   }
 
