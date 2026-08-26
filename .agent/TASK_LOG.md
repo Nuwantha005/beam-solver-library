@@ -103,3 +103,17 @@
   - `.agent/plans/phase-3-generalized-reaction-solver.md` (created)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npx tsc --noEmit` passed with 0 errors; all 17 Jest test suites passed (110 tests).
+
+### [2026-08-26] Phase 4: Piecewise Analytical SFD & BMD Calculation Engine
+- **Status**: Completed
+- **Summary**: Implemented `BeamEventEngine` for critical boundary event extraction and interval segmentation; implemented exact piecewise analytical `ShearMomentSolver` computing left-cut internal shear $V(x)$ and bending moment $M(x)$ with discontinuity limit queries ($V(x^-) \neq V(x^+)$, step jump $\Delta M$), bisection zero-shear root detection ($V(x)=0$), and global moment/shear extrema; integrated analytical sampling and evaluation into `MCSolver`; added comprehensive unit tests for midspan point loads, full UDLs, cantilevers, applied couples, and non-linear triangular distributed loads; and updated docs and public exports.
+- **Files Touched**:
+  - `src/solvers/BeamEventEngine.ts` (created)
+  - `src/solvers/ShearMomentSolver.ts` (created)
+  - `src/solvers/MCSolver.ts` (modified)
+  - `src/index.ts` (modified)
+  - `test/solvers/ShearMomentSolver.test.ts` (created)
+  - `.agent/docs/api-and-conventions.md` (modified)
+  - `.agent/plans/phase-4-piecewise-sfd-bmd-engine.md` (created)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: `npx tsc --noEmit` passed with 0 errors; all 18 Jest test suites passed (120 tests).

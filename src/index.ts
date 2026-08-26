@@ -34,3 +34,5 @@ export * from "./solvers/ISolver";
 export * from "./solvers/BaseSolver";
 export * from "./solvers/MCSolver";
 export { default as ReactionSolver, ReactionSolver as ReactionSolverClass } from "./solvers/ReactionSolver";
+export { default as BeamEventEngine, BeamEventEngine as BeamEventEngineClass } from "./solvers/BeamEventEngine";
+export { default as ShearMomentSolver, ShearMomentSolver as ShearMomentSolverClass } from "./solvers/ShearMomentSolver";
