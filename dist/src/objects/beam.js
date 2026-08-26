@@ -1,24 +1,35 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BeamType = exports.Beam = void 0;
 const CustomSection_1 = require("./crossSections/CustomSection");
 const BaseSupport_1 = require("./supports/BaseSupport");
+const ILoad_1 = require("./Forces/Loads/ILoad");
+const BeamErrors_1 = require("../errors/BeamErrors");
+const BeamAnalyzer_1 = __importDefault(require("../solvers/BeamAnalyzer"));
 class Beam {
     constructor(length, EModulus, crossSection) {
-        this._eModulus = 0; // Initialize with a default value
+        this._eModulus = 0;
         this._crossSection = new CustomSection_1.CustomSection();
-        this._forces = [];
+        this._loads = [];
         this._supports = [];
+        if (length <= 0) {
+            throw new BeamErrors_1.InvalidGeometryError("Length must be positive.");
+        }
         this._length = length;
         if (EModulus !== undefined) {
+            if (EModulus <= 0) {
+                throw new BeamErrors_1.InvalidGeometryError("EModulus must be positive.");
+            }
             this._eModulus = EModulus;
         }
         if (crossSection !== undefined) {
             this._crossSection = crossSection;
         }
     }
-    getBeamType() {
-        // if only has pinned supoorts, its simply supported beam
+    get BeamType() {
         let type = BeamType.NONE;
         let hasPinnedSupport = false;
         let hasRollerSupport = false;
@@ -26,19 +37,19 @@ class Beam {
         let hasSupportsAtEnd = false;
         let hasSupportAtStart = false;
         this._supports.forEach((support) => {
-            if (support.SupportType === BaseSupport_1.supportType.pinnedSupport) {
+            if (support.SupportType === BaseSupport_1.supportType.PINNED) {
                 hasPinnedSupport = true;
             }
-            else if (support.SupportType === BaseSupport_1.supportType.rollerSupport) {
+            else if (support.SupportType === BaseSupport_1.supportType.ROLLER) {
                 hasRollerSupport = true;
             }
-            else if (support.SupportType === BaseSupport_1.supportType.fixedSupport) {
+            else if (support.SupportType === BaseSupport_1.supportType.FIXED) {
                 hasFixedSupport = true;
             }
-            if (support.Location == 0) {
+            if (support.Location === 0) {
                 hasSupportAtStart = true;
             }
-            if (support.Location == this._length) {
+            if (support.Location === this._length) {
                 hasSupportsAtEnd = true;
             }
         });
@@ -62,30 +73,89 @@ class Beam {
         }
         return type;
     }
+    // --- Load Management ---
+    /**
+     * Adds any valid load (PointLoad, Force2D, UDL, Trapezoidal, or MomentLoad) to the beam.
+     */
+    addLoad(load) {
+        if (load.startLocation < 0 ||
+            load.endLocation > this._length ||
+            load.startLocation > load.endLocation) {
+            throw new BeamErrors_1.InvalidGeometryError(`Load coordinates [${load.startLocation}, ${load.endLocation}] are outside beam span [0, ${this._length}].`);
+        }
+        this._loads.push(load);
+    }
+    /**
+     * Returns all loads applied to the beam.
+     */
+    getLoads() {
+        return this._loads;
+    }
+    /**
+     * Sets the applied loads, replacing existing ones after boundary validation.
+     */
+    setLoads(loads) {
+        this.removeLoads();
+        loads.forEach((load) => this.addLoad(load));
+    }
+    /**
+     * Removes all loads from the beam.
+     */
+    removeLoads() {
+        this._loads = [];
+    }
+    /**
+     * Returns all concentrated point loads / forces.
+     */
+    getPointLoads() {
+        return this._loads.filter((l) => l.loadType === ILoad_1.LoadType.POINT);
+    }
+    /**
+     * Returns all distributed loads (UDL, Trapezoidal).
+     */
+    getDistributedLoads() {
+        return this._loads.filter((l) => l.loadType === ILoad_1.LoadType.DISTRIBUTED);
+    }
+    /**
+     * Returns all applied concentrated moments.
+     */
+    getAppliedMoments() {
+        return this._loads.filter((l) => l.loadType === ILoad_1.LoadType.MOMENT);
+    }
+    // --- Backwards Compatibility for Forces ---
     addForce(force) {
-        this._forces.push(force);
+        this.addLoad(force);
     }
     getForces() {
-        return this._forces;
+        return this.getPointLoads();
     }
     setForces(forces) {
-        this._forces = forces;
+        // Retain non-point loads if any, replace point loads
+        const nonPointLoads = this._loads.filter((l) => l.loadType !== ILoad_1.LoadType.POINT);
+        this._loads = [...nonPointLoads];
+        forces.forEach((f) => this.addLoad(f));
     }
     removeForces() {
-        this._forces = [];
+        this._loads = this._loads.filter((l) => l.loadType !== ILoad_1.LoadType.POINT);
     }
+    // --- Support Management ---
     addSupport(support) {
+        if (support.Location < 0 || support.Location > this._length) {
+            throw new BeamErrors_1.InvalidGeometryError(`Support location ${support.Location} is outside beam span [0, ${this._length}].`);
+        }
         this._supports.push(support);
     }
     getSupports() {
         return this._supports;
     }
     setSupports(supports) {
-        this._supports = supports;
+        this.removeSupports();
+        supports.forEach((s) => this.addSupport(s));
     }
     removeSupports() {
         this._supports = [];
     }
+    // --- Section & Material Properties ---
     get crossSection() {
         return this._crossSection;
     }
@@ -97,7 +167,7 @@ class Beam {
     }
     set Length(value) {
         if (value <= 0) {
-            throw new Error("Length must be positive.");
+            throw new BeamErrors_1.InvalidGeometryError("Length must be positive.");
         }
         this._length = value;
     }
@@ -106,9 +176,13 @@ class Beam {
     }
     set EModulus(value) {
         if (value <= 0) {
-            throw new Error("EModulus must be positive.");
+            throw new BeamErrors_1.InvalidGeometryError("EModulus must be positive.");
         }
         this._eModulus = value;
+    }
+    // --- End-to-End Analysis ---
+    analyze(options) {
+        return BeamAnalyzer_1.default.analyze(this, options);
     }
 }
 exports.Beam = Beam;

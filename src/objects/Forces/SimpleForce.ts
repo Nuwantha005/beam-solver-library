@@ -8,7 +8,7 @@ class SimpleForce extends BaseForce {
   }
 
   // Override setY to prevent changing y value
-  setY(y: number): void {
+  setY(_y: number): void {
     // y is always 0 and cannot be changed
     throw new Error("Modification of y is not allowed.");
   }

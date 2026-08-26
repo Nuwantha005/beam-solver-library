@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const BaseFroce_1 = __importDefault(require("../../../src/objects/Forces/BaseFroce"));
-class TestForce extends BaseFroce_1.default {
+const BaseForce_1 = __importDefault(require("../../../src/objects/Forces/BaseForce"));
+class TestForce extends BaseForce_1.default {
     constructor(magnitude, direction, x, y) {
         super(magnitude, direction, x, y);
     }

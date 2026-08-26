@@ -1,10 +1,9 @@
-import BaseReaction from "../Forces/reactions/BaseReaction";
-import SimpleReaction from "../Forces/reactions/SimpleReaction";
+import SimpleForce from "../Forces/SimpleForce";
 import { BaseSupport } from "./BaseSupport";
 export declare class RollerSupport extends BaseSupport {
-    constructor(location: number);
-    get Reaction(): BaseReaction;
-    set Reaction(reaction: SimpleReaction);
     private _reaction;
+    constructor(location: number);
+    get Reaction(): SimpleForce;
+    set Reaction(reaction: SimpleForce);
 }
 export default RollerSupport;

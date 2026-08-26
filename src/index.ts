@@ -9,7 +9,7 @@ export { default as BaseForce } from "./objects/Forces/BaseForce";
 export { default as SimpleForce } from "./objects/Forces/SimpleForce";
 export { default as Force2D } from "./objects/Forces/Force2D";
 export { default as Moment } from "./objects/Forces/Moment";
-export { IForce } from "./objects/Forces/IForce";
+export type { IForce } from "./objects/Forces/IForce";
 export { default as PointLoad } from "./objects/Forces/Loads/PointLoad";
 export { default as DistributedLoad } from "./objects/Forces/Loads/DistributedLoad";
 export { default as UniformlyDistributedLoad } from "./objects/Forces/Loads/UniformlyDistributedLoad";
@@ -19,7 +19,7 @@ export { default as MomentLoad, MomentLoad as MomentLoadClass } from "./objects/
 // Cross Section Exports
 export * from "./objects/crossSections/CrossSection";
 export { default as CircularCrossSection } from "./objects/crossSections/CircCrossSection";
-export { default as ICrossSection } from "./objects/crossSections/ISection";
+export type { default as ICrossSection } from "./objects/crossSections/ISection";
 export { default as CustomSection } from "./objects/crossSections/CustomSection";
 export { default as RectangularCrossSection } from "./objects/crossSections/RectCross";
 

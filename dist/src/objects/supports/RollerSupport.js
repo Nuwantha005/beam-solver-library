@@ -4,12 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RollerSupport = void 0;
-const SimpleReaction_1 = __importDefault(require("../Forces/reactions/SimpleReaction"));
+const SimpleForce_1 = __importDefault(require("../Forces/SimpleForce"));
 const BaseSupport_1 = require("./BaseSupport");
+const Moment_1 = __importDefault(require("../Forces/Moment"));
 class RollerSupport extends BaseSupport_1.BaseSupport {
     constructor(location) {
-        super(location, BaseSupport_1.supportType.rollerSupport);
-        this._reaction = new SimpleReaction_1.default(0, "up", 0);
+        super(location, BaseSupport_1.supportType.ROLLER, new Moment_1.default(0, "cw", location, 0));
+        this._reaction = new SimpleForce_1.default(0, "up", location);
     }
     get Reaction() {
         return this._reaction;

@@ -4,12 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PinnedSupport = void 0;
-const DoubleReaction_1 = __importDefault(require("../Forces/reactions/DoubleReaction"));
+const Force2D_1 = __importDefault(require("../Forces/Force2D"));
 const BaseSupport_1 = require("./BaseSupport");
+const Moment_1 = __importDefault(require("../Forces/Moment"));
 class PinnedSupport extends BaseSupport_1.BaseSupport {
     constructor(location) {
-        super(location, BaseSupport_1.supportType.pinnedSupport);
-        this._reaction = new DoubleReaction_1.default(0, 0, 0, 0);
+        super(location, BaseSupport_1.supportType.PINNED, new Moment_1.default(0, "cw", location, 0));
+        this._reaction = new Force2D_1.default(0, 0, location);
     }
     get Reaction() {
         return this._reaction;

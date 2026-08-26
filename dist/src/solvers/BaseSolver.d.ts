@@ -1,5 +1,5 @@
 import { Beam } from "../objects/beam";
-import BaseForce from "../objects/Forces/BaseFroce";
+import BaseForce from "../objects/Forces/BaseForce";
 import Moment from "../objects/Forces/Moment";
 import { ISolver } from "./ISolver";
 export declare abstract class BaseSolver implements ISolver {
@@ -15,7 +15,6 @@ export declare abstract class BaseSolver implements ISolver {
     abstract getMaxMoment(): Moment;
     abstract getDeflectionAt(x: number): number;
     findReactions(): boolean;
-    static solveLinearSystem(A: number[][], b: number[]): number[];
     solveReactions(): boolean;
     get beam(): Beam;
     set beam(value: Beam);

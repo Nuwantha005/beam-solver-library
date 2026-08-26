@@ -156,3 +156,12 @@
   - `.agent/plans/phase-7-canonical-benchmarks.md` (created)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npx tsc --noEmit` passed with 0 errors; all 21 Jest test suites passed (136 tests).
+
+### [2026-08-26] Package Exports & Build Artifact Synchronization
+- **Status**: Completed
+- **Summary**: Updated `package.json` entry points to point `main` to `dist/src/index.js` and `types` to `dist/src/index.d.ts`, added `"build": "tsc"`, and recompiled TypeScript output to `dist/`.
+- **Files Touched**:
+  - `package.json` (modified)
+  - `dist/src/index.js` (recompiled)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: `npm test` passed (21 test suites, 136 tests); `npx tsc` compiled cleanly.

@@ -1,4 +1,4 @@
-import BaseForce from "../objects/Forces/BaseFroce";
+import BaseForce from "../objects/Forces/BaseForce";
 import Moment from "../objects/Forces/Moment";
 export interface ISolver {
     solve(): boolean;

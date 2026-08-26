@@ -7,35 +7,46 @@ exports.MCSolver = void 0;
 const Moment_1 = __importDefault(require("../objects/Forces/Moment"));
 const SimpleForce_1 = __importDefault(require("../objects/Forces/SimpleForce"));
 const BaseSolver_1 = require("./BaseSolver");
-// Use Moment-Curvature Relationship to solve for the shear and moment at a given point on the beam.
+const ShearMomentSolver_1 = __importDefault(require("./ShearMomentSolver"));
+const DeflectionSolver_1 = __importDefault(require("./DeflectionSolver"));
 class MCSolver extends BaseSolver_1.BaseSolver {
     constructor(beam, stepSize = beam.Length / 100) {
         super(beam, stepSize);
+        this._smSolver = new ShearMomentSolver_1.default(beam);
+        this._deflectionSolver = new DeflectionSolver_1.default(beam);
     }
     solve() {
-        const L = this.beam_.Length;
-        const EI = this.beam_.EModulus * this.beam_.crossSection.getInertia();
+        this.solveReactions();
+        this._smSolver = new ShearMomentSolver_1.default(this.beam_);
+        this._deflectionSolver = new DeflectionSolver_1.default(this.beam_);
+        const points = Math.max(10, Math.round(this.beam_.Length / this.stepSize_));
+        this.shearCurve_ = this._smSolver.sampleShearCurve(points).map((s) => s.v);
+        this.momentCurve_ = this._smSolver.sampleMomentCurve(points).map((s) => s.m);
         return true;
     }
     getShearAt(x) {
-        // Implement shear calculation at position x
-        return new SimpleForce_1.default(0, "down", x);
+        const v = this._smSolver.getShearAt(x);
+        const dir = v >= 0 ? "up" : "down";
+        return new SimpleForce_1.default(Math.abs(v), dir, x);
     }
     getMomentAt(x) {
-        // Implement moment calculation at position x
-        return new Moment_1.default(0);
+        const m = this._smSolver.getMomentAt(x);
+        const dir = m >= 0 ? "ccw" : "cw";
+        return new Moment_1.default(Math.abs(m), dir, x, 0);
     }
     getMaxShear() {
-        return new SimpleForce_1.default(0, "down", 0);
+        const max = this._smSolver.getMaxShear();
+        const dir = max.value >= 0 ? "up" : "down";
+        return new SimpleForce_1.default(Math.abs(max.value), dir, max.x);
     }
     getMaxMoment() {
-        // Implement maximum moment calculation
-        return new Moment_1.default();
+        const max = this._smSolver.getMaxMoment();
+        const dir = max.value >= 0 ? "ccw" : "cw";
+        return new Moment_1.default(Math.abs(max.value), dir, max.x, 0);
     }
     getDeflectionAt(x) {
-        // Implement deflection calculation at position x using integration
-        // ...implementation code...
-        return 0;
+        return this._deflectionSolver.getDeflectionAt(x);
     }
 }
 exports.MCSolver = MCSolver;
+exports.default = MCSolver;
