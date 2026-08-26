@@ -1,8 +1,10 @@
 # Beam Solver Library
 
+[![Live Web Application](https://img.shields.io/badge/Live%20Web%20App-Nuwantha005.github.io%2Fbeam--solver--website-blue?style=flat-square&logo=githubpages)](https://Nuwantha005.github.io/beam-solver-website/)
+
 A pure TypeScript structural engineering calculation engine for statically determinate 2D beam analysis. Designed to power web applications, visualizers, and engineering tools by cleanly separating mathematical computation from UI presentation.
 
-> 🌐 **Interactive Web Application**: This engine powers [**beam-solver-website**](https://github.com/Nuwantha005/beam-solver-website), a modern real-time React 19 web application with direct SVG manipulation, live 60 FPS SFD/BMD/Deflection diagrams, and step-by-step equilibrium derivations.
+> 🌐 **Live Interactive Web App**: Try the solver live in your browser at **[https://Nuwantha005.github.io/beam-solver-website/](https://Nuwantha005.github.io/beam-solver-website/)** ([GitHub Repository](https://github.com/Nuwantha005/beam-solver-website)). Features direct SVG manipulation, live 60 FPS SFD/BMD/Deflection diagrams, and step-by-step equilibrium derivations.
 
 ---
 
@@ -161,7 +163,11 @@ For in-depth mathematical formulas, boundary conditions, and solver specificatio
 
 ## 🌐 Interactive Web Application
 
-Looking for a visual, interactive tool? Check out the **[beam-solver-website](https://github.com/Nuwantha005/beam-solver-website)** repository:
+Experience the library in action with the live web application:
+- 🚀 **Live Web App**: **[https://Nuwantha005.github.io/beam-solver-website/](https://Nuwantha005.github.io/beam-solver-website/)**
+- 📦 **Source Repository**: [**Nuwantha005/beam-solver-website**](https://github.com/Nuwantha005/beam-solver-website)
+
+### Key Web Features:
 - **Direct SVG Canvas Manipulation**: Drag supports, point loads, UDLs, trapezoidal loads, and moments with magnetic snapping.
 - **Synchronized Real-Time Diagrams**: 60 FPS live SFD, BMD, and elastic deflection profiles.
 - **Educational Step-by-Step Derivations**: KaTeX-rendered static equilibrium math ($\sum F_x = 0, \sum F_y = 0, \sum M = 0$).
