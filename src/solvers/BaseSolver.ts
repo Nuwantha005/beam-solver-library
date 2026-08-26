@@ -2,6 +2,7 @@ import { Beam, BeamType } from "../objects/beam";
 import BaseForce from "../objects/Forces/BaseForce";
 import Moment from "../objects/Forces/Moment";
 import { ISolver } from "./ISolver";
+import ReactionSolver from "./ReactionSolver";
 
 export abstract class BaseSolver implements ISolver {
   protected beam_: Beam;
@@ -27,32 +28,8 @@ export abstract class BaseSolver implements ISolver {
     return true;
   }
 
-  // Fails for beams with more than 2 supports -> Because they are statically indetermine ???
-  //
   solveReactions(): boolean {
-    const supports = this.beam_.getSupports();
-    const forces = this.beam_.getForces();
-    if (this.beam_.BeamType == BeamType.SIMPLY_SUPPORTED) {
-      const forceSum = forces.reduce(
-        (sum, force) => sum + force.getMagnitude(),
-        0
-      );
-      const magSum = forces.reduce(
-        (sum, force) => sum + force.getMomentAround(supports[0].Location),
-        0
-      );
-      let r2: number = magSum / this.beam_.Length;
-      let r1: number = forceSum - r2;
-
-      supports[0].Reaction.setMagnitude(r1);
-      supports[1].Reaction.setMagnitude(r2);
-      return true;
-    } else {
-      console.log(
-        "Solving reactions for statically indeterminate beams is not supported yet."
-      );
-      return false;
-    }
+    return ReactionSolver.solve(this.beam_);
   }
 
   get beam(): Beam {

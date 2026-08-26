@@ -33,3 +33,4 @@ export { default as FixedSupport } from "./objects/supports/FixedSupport";
 export * from "./solvers/ISolver";
 export * from "./solvers/BaseSolver";
 export * from "./solvers/MCSolver";
+export { default as ReactionSolver, ReactionSolver as ReactionSolverClass } from "./solvers/ReactionSolver";

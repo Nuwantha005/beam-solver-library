@@ -10,10 +10,10 @@ All consumers of this library import exclusively from [`src/index.ts`](file:///s
 - **Forces & Loads**: `ILoad`, `LoadType`, `BaseForce`, `SimpleForce`, `Force2D`, `Moment`, `IForce`, `PointLoad`, `DistributedLoad`, `UniformlyDistributedLoad`, `TaperzoidLoad`, `MomentLoad`
 - **Cross Sections**: `BaseSection`, `CrossSectionType`, `CircularCrossSection`, `ICrossSection`, `CustomSection`, `RectangularCrossSection`
 - **Supports**: `BaseSupport`, `supportType`, `PinnedSupport`, `RollerSupport`, `FixedSupport`
-- **Solvers**: `ISolver`, `BaseSolver`, `MCSolver`
+- **Solvers**: `ISolver`, `BaseSolver`, `MCSolver`, `ReactionSolver`
 
 ### Planned / Upcoming Exports
-- `ReactionSolver`, `ShearMomentSolver`, `DeflectionSolver`
+- `ShearMomentSolver`, `DeflectionSolver`
 - `ReactionResult`, `ShearResult`, `MomentResult`, `DiagramResult`, `AnalysisResult`
 
 ---

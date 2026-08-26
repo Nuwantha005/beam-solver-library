@@ -89,3 +89,17 @@
   - `.agent/plans/phase-2-unified-load-hierarchy.md` (created)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npx tsc --noEmit` passed with 0 errors; all 16 Jest test suites passed (97 tests).
+
+### [2026-08-26] Phase 3: Generalized Matrix Equilibrium Reaction Solver
+- **Status**: Completed
+- **Summary**: Implemented generalized 2D Cartesian static equilibrium matrix solver `ReactionSolver` formulating and solving $[A]\{R\} = \{b\}$ ($\sum F_x = 0$, $\sum F_y = 0$, $\sum M_O = 0$); dynamically extracted DOFs from `RollerSupport` (1 DOF), `PinnedSupport` (2 DOFs), and `FixedSupport` (3 DOFs); added rigorous kinematic stability and determinacy checks (`UnstableBeamError`, `IndeterminateBeamError`); populated solved reaction forces and moments directly back into support instances; updated `BaseSolver.solveReactions()`; added comprehensive unit test suite covering simply supported, cantilever, overhanging, angled loads, applied moments, and unstable/indeterminate error handling; and updated docs and public exports.
+- **Files Touched**:
+  - `src/solvers/ReactionSolver.ts` (created)
+  - `src/solvers/BaseSolver.ts` (modified)
+  - `src/index.ts` (modified)
+  - `test/solvers/ReactionSolver.test.ts` (created)
+  - `test/solvers/MCSolver.test.ts` (modified)
+  - `.agent/docs/api-and-conventions.md` (modified)
+  - `.agent/plans/phase-3-generalized-reaction-solver.md` (created)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: `npx tsc --noEmit` passed with 0 errors; all 17 Jest test suites passed (110 tests).
