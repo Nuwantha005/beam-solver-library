@@ -5,7 +5,7 @@ import Moment from "../Forces/Moment";
 export class RollerSupport extends BaseSupport {
   private _reaction: SimpleForce;
   constructor(location: number) {
-    super(location, supportType.ROLLER, new Moment(0, "cw", 0, 0));
+    super(location, supportType.ROLLER, new Moment(0, "cw", location, 0));
     this._reaction = new SimpleForce(0, "up", location);
   }
   get Reaction(): SimpleForce {
@@ -13,12 +13,6 @@ export class RollerSupport extends BaseSupport {
   }
   set Reaction(reaction: SimpleForce) {
     this._reaction = reaction;
-  }
-  get Moment(): Moment {
-    return this.Moment;
-  }
-  set Moment(moment: Moment) {
-    //
   }
 }
 

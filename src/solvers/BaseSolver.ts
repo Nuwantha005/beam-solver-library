@@ -1,5 +1,5 @@
 import { Beam, BeamType } from "../objects/beam";
-import BaseForce from "../objects/Forces/BaseFroce";
+import BaseForce from "../objects/Forces/BaseForce";
 import Moment from "../objects/Forces/Moment";
 import { ISolver } from "./ISolver";
 

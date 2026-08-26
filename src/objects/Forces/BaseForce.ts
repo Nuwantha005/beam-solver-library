@@ -72,3 +72,4 @@ abstract class BaseForce implements IForce {
 }
 
 export default BaseForce;
+export { BaseForce };

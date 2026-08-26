@@ -1,4 +1,4 @@
-import BaseForce from "../../../src/objects/Forces/BaseFroce";
+import BaseForce from "../../../src/objects/Forces/BaseForce";
 
 class TestForce extends BaseForce {
   constructor(magnitude: number, direction: number, x: number, y: number) {

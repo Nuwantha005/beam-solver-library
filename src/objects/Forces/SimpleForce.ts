@@ -1,4 +1,4 @@
-import BaseForce from "./BaseFroce";
+import BaseForce from "./BaseForce";
 import Moment from "./Moment";
 
 class SimpleForce extends BaseForce {

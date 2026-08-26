@@ -1,4 +1,4 @@
-import BaseForce from "../Forces/BaseFroce";
+import BaseForce from "../Forces/BaseForce";
 import Moment from "../Forces/Moment";
 
 export enum supportType {
@@ -9,14 +9,14 @@ export enum supportType {
 }
 
 export abstract class BaseSupport {
-  private _loc: number;
-  private _supportType: supportType;
-  private _moment;
+  protected _loc: number;
+  protected _supportType: supportType;
+  protected _moment: Moment;
 
-  constructor(location: number, supportType: supportType, moment: Moment) {
+  constructor(location: number, supportType: supportType, moment?: Moment) {
     this._loc = location;
     this._supportType = supportType;
-    this._moment = new Moment(0, "cw", location, 0);
+    this._moment = moment ?? new Moment(0, "cw", location, 0);
   }
   get SupportType() {
     return this._supportType;
@@ -30,8 +30,12 @@ export abstract class BaseSupport {
   }
 
   abstract get Reaction(): BaseForce;
-  abstract set Reaction(reaction: BaseSupport);
+  abstract set Reaction(reaction: BaseForce);
 
-  abstract get Moment(): Moment;
-  abstract set Moment(Moment: Moment);
+  get Moment(): Moment {
+    return this._moment;
+  }
+  set Moment(moment: Moment) {
+    this._moment = moment;
+  }
 }

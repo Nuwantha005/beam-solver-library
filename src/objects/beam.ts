@@ -1,6 +1,6 @@
 import { BaseSection } from "./crossSections/CrossSection";
 import { CustomSection } from "./crossSections/CustomSection";
-import BaseForce from "./Forces/BaseFroce";
+import BaseForce from "./Forces/BaseForce";
 import { BaseSupport, supportType } from "./supports/BaseSupport";
 
 export class Beam {

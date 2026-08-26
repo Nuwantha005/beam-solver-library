@@ -1,4 +1,3 @@
-import { describe } from "node:test";
 import { Beam } from "../../src/objects/beam";
 import { RectangleCrossSection } from "../../src/objects/crossSections/RectCross";
 import { CrossSectionType } from "../../src/objects/crossSections/CrossSection";

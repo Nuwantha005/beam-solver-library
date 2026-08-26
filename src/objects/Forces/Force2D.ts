@@ -1,4 +1,4 @@
-import BaseForce from "./BaseFroce";
+import BaseForce from "./BaseForce";
 
 class Force2D extends BaseForce {
   constructor(magnitude: number, direction: number, x: number) {
