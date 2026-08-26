@@ -40,3 +40,4 @@ export { default as ReactionSolver, ReactionSolver as ReactionSolverClass } from
 export { default as BeamEventEngine, BeamEventEngine as BeamEventEngineClass } from "./solvers/BeamEventEngine";
 export { default as ShearMomentSolver, ShearMomentSolver as ShearMomentSolverClass } from "./solvers/ShearMomentSolver";
 export { default as BeamAnalyzer, BeamAnalyzer as BeamAnalyzerClass } from "./solvers/BeamAnalyzer";
+export { default as DeflectionSolver, DeflectionSolver as DeflectionSolverClass } from "./solvers/DeflectionSolver";

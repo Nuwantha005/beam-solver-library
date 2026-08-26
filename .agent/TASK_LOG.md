@@ -131,3 +131,17 @@
   - `.agent/plans/phase-5-structured-results-and-diagrams.md` (created)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npx tsc --noEmit` passed with 0 errors; all 19 Jest test suites passed (124 tests).
+
+### [2026-08-26] Phase 6: Deflection Solver & Elastic Curve Engine
+- **Status**: Completed
+- **Summary**: Implemented Euler-Bernoulli direct numerical integration solver `DeflectionSolver` solving $EI v''(x) = M(x)$ with composite Simpson's quadrature and boundary condition constraint solving ($C_1, C_2$); integrated deflection calculation and `deflectionDiagram` into `BeamAnalyzer` and `MCSolver.getDeflectionAt()`; created comprehensive test suite validating all classical benchmark closed-form deflection cases (simply supported center load, UDL, cantilever tip load, cantilever UDL) with $< 10^{-4}$ precision; and updated public exports and documentation.
+- **Files Touched**:
+  - `src/solvers/DeflectionSolver.ts` (created)
+  - `src/solvers/BeamAnalyzer.ts` (modified)
+  - `src/solvers/MCSolver.ts` (modified)
+  - `src/index.ts` (modified)
+  - `test/solvers/DeflectionSolver.test.ts` (created)
+  - `.agent/docs/api-and-conventions.md` (modified)
+  - `.agent/plans/phase-6-deflection-solver.md` (created)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: `npx tsc --noEmit` passed with 0 errors; all 20 Jest test suites passed (129 tests).

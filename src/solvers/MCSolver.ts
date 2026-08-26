@@ -5,17 +5,22 @@ import SimpleForce from "../objects/Forces/SimpleForce";
 import { BaseSolver } from "./BaseSolver";
 import ShearMomentSolver from "./ShearMomentSolver";
 
+import DeflectionSolver from "./DeflectionSolver";
+
 export class MCSolver extends BaseSolver {
   private _smSolver: ShearMomentSolver;
+  private _deflectionSolver: DeflectionSolver;
 
   constructor(beam: Beam, stepSize: number = beam.Length / 100) {
     super(beam, stepSize);
     this._smSolver = new ShearMomentSolver(beam);
+    this._deflectionSolver = new DeflectionSolver(beam);
   }
 
   solve(): boolean {
     this.solveReactions();
     this._smSolver = new ShearMomentSolver(this.beam_);
+    this._deflectionSolver = new DeflectionSolver(this.beam_);
 
     const points = Math.max(10, Math.round(this.beam_.Length / this.stepSize_));
     this.shearCurve_ = this._smSolver.sampleShearCurve(points).map((s) => s.v);
@@ -49,7 +54,7 @@ export class MCSolver extends BaseSolver {
   }
 
   getDeflectionAt(x: number): number {
-    return 0;
+    return this._deflectionSolver.getDeflectionAt(x);
   }
 }
 

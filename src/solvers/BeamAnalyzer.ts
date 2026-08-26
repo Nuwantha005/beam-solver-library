@@ -9,6 +9,7 @@ import {
 } from "../results/AnalysisResult";
 import ReactionSolver from "./ReactionSolver";
 import ShearMomentSolver from "./ShearMomentSolver";
+import DeflectionSolver from "./DeflectionSolver";
 import BeamEventEngine from "./BeamEventEngine";
 import UniformlyDistributedLoad from "../objects/Forces/Loads/UniformlyDistributedLoad";
 import TaperzoidLoad from "../objects/Forces/Loads/TaperzoidLoad";
@@ -17,7 +18,7 @@ export class BeamAnalyzer {
   /**
    * Executes a complete structural analysis on the provided Beam model,
    * producing strongly typed reaction results, shear force diagrams,
-   * and bending moment diagrams.
+   * bending moment diagrams, and elastic deflection curves.
    *
    * @param beam The Beam model to analyze.
    * @param options Configuration options for sampling resolution and precision.
@@ -50,8 +51,9 @@ export class BeamAnalyzer {
       };
     });
 
-    // 3. Initialize Analytical SFD/BMD Engine
+    // 3. Initialize Analytical SFD/BMD & Deflection Engines
     const smSolver = new ShearMomentSolver(beam);
+    const deflectionSolver = new DeflectionSolver(beam);
     const events = BeamEventEngine.extractEvents(beam);
     const intervals = BeamEventEngine.createIntervals(events);
     const samplesPerSegment = options?.samplesPerSegment ?? 20;
@@ -73,12 +75,12 @@ export class BeamAnalyzer {
       });
 
       if (hasTrapezoid) {
-        return { shearDegree: 2, momentDegree: 3 };
+        return { shearDegree: 2, momentDegree: 3, deflectionDegree: 5 };
       }
       if (hasUDL) {
-        return { shearDegree: 1, momentDegree: 2 };
+        return { shearDegree: 1, momentDegree: 2, deflectionDegree: 4 };
       }
-      return { shearDegree: 0, momentDegree: 1 };
+      return { shearDegree: 0, momentDegree: 1, deflectionDegree: 3 };
     };
 
     // 4. Construct Shear Diagram
@@ -193,6 +195,49 @@ export class BeamAnalyzer {
       zeroCrossings,
     };
 
+    // 6. Construct Deflection Diagram
+    const deflectionSegments: DiagramSegment[] = [];
+    const deflectionPoints: DiagramPoint[] = [];
+
+    intervals.forEach((interval) => {
+      const { deflectionDegree } = getIntervalDegrees(interval.start, interval.end);
+      const segmentSamples: DiagramPoint[] = [];
+
+      for (let i = 0; i <= samplesPerSegment; i++) {
+        const t = i / samplesPerSegment;
+        const x = interval.start + t * interval.length;
+        const v = deflectionSolver.getDeflectionAt(x);
+
+        const point: DiagramPoint = {
+          x,
+          value: v,
+        };
+
+        segmentSamples.push(point);
+        deflectionPoints.push(point);
+      }
+
+      deflectionSegments.push({
+        startX: interval.start,
+        endX: interval.end,
+        length: interval.length,
+        polynomialDegree: deflectionDegree,
+        samples: segmentSamples,
+      });
+    });
+
+    const defMax = deflectionSolver.getMaxDeflection();
+    const defMin = deflectionSolver.getMinDeflection();
+
+    const deflectionDiagram: DiagramResult = {
+      diagramType: "DEFLECTION",
+      points: deflectionPoints,
+      segments: deflectionSegments,
+      max: defMax,
+      min: defMin,
+      zeroCrossings: [],
+    };
+
     const endTime = typeof performance !== "undefined" ? performance.now() : Date.now();
 
     return {
@@ -201,6 +246,7 @@ export class BeamAnalyzer {
       reactions,
       shearDiagram,
       momentDiagram,
+      deflectionDiagram,
       isStaticallyDeterminate: true,
       solveTimeMs: Math.max(0, endTime - startTime),
     };
