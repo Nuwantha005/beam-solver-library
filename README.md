@@ -2,6 +2,8 @@
 
 A pure TypeScript structural engineering calculation engine for statically determinate 2D beam analysis. Designed to power web applications, visualizers, and engineering tools by cleanly separating mathematical computation from UI presentation.
 
+> 🌐 **Interactive Web Application**: This engine powers [**beam-solver-website**](https://github.com/Nuwantha005/beam-solver-website), a modern real-time React 19 web application with direct SVG manipulation, live 60 FPS SFD/BMD/Deflection diagrams, and step-by-step equilibrium derivations.
+
 ---
 
 ## Features
@@ -33,8 +35,8 @@ A pure TypeScript structural engineering calculation engine for statically deter
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/Nuwantha005/beam_Solver_library_ts.git
-cd beam_Solver_library_ts
+git clone https://github.com/Nuwantha005/beam-solver-library.git
+cd beam-solver-library
 npm install
 ```
 
@@ -157,6 +159,16 @@ For in-depth mathematical formulas, boundary conditions, and solver specificatio
 
 ---
 
+## 🌐 Interactive Web Application
+
+Looking for a visual, interactive tool? Check out the **[beam-solver-website](https://github.com/Nuwantha005/beam-solver-website)** repository:
+- **Direct SVG Canvas Manipulation**: Drag supports, point loads, UDLs, trapezoidal loads, and moments with magnetic snapping.
+- **Synchronized Real-Time Diagrams**: 60 FPS live SFD, BMD, and elastic deflection profiles.
+- **Educational Step-by-Step Derivations**: KaTeX-rendered static equilibrium math ($\sum F_x = 0, \sum F_y = 0, \sum M = 0$).
+
+---
+
 ## License
 
 This project is licensed under the [ISC License](file:///LICENSE).
+
