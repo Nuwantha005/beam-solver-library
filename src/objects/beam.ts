@@ -6,6 +6,8 @@ import { ILoad, LoadType } from "./Forces/Loads/ILoad";
 import DistributedLoad from "./Forces/Loads/DistributedLoad";
 import MomentLoad from "./Forces/Loads/MomentLoad";
 import { InvalidGeometryError } from "../errors/BeamErrors";
+import { AnalysisResult, AnalysisOptions } from "../results/AnalysisResult";
+import BeamAnalyzer from "../solvers/BeamAnalyzer";
 
 export class Beam {
   private _length: number;
@@ -218,6 +220,12 @@ export class Beam {
       throw new InvalidGeometryError("EModulus must be positive.");
     }
     this._eModulus = value;
+  }
+
+  // --- End-to-End Analysis ---
+
+  analyze(options?: AnalysisOptions): AnalysisResult {
+    return BeamAnalyzer.analyze(this, options);
   }
 }
 

@@ -29,6 +29,9 @@ export { default as PinnedSupport } from "./objects/supports/PinnedSupport";
 export { default as RollerSupport } from "./objects/supports/RollerSupport";
 export { default as FixedSupport } from "./objects/supports/FixedSupport";
 
+// Results Exports
+export * from "./results/AnalysisResult";
+
 // Solver Exports
 export * from "./solvers/ISolver";
 export * from "./solvers/BaseSolver";
@@ -36,3 +39,4 @@ export * from "./solvers/MCSolver";
 export { default as ReactionSolver, ReactionSolver as ReactionSolverClass } from "./solvers/ReactionSolver";
 export { default as BeamEventEngine, BeamEventEngine as BeamEventEngineClass } from "./solvers/BeamEventEngine";
 export { default as ShearMomentSolver, ShearMomentSolver as ShearMomentSolverClass } from "./solvers/ShearMomentSolver";
+export { default as BeamAnalyzer, BeamAnalyzer as BeamAnalyzerClass } from "./solvers/BeamAnalyzer";

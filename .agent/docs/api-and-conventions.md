@@ -8,12 +8,12 @@ All consumers of this library import exclusively from [`src/index.ts`](file:///s
 - **Beam Model**: `Beam`, `BeamType`
 - **Errors**: `BeamError`, `UnstableBeamError`, `IndeterminateBeamError`, `InvalidGeometryError`, `SingularMatrixError`
 - **Forces & Loads**: `ILoad`, `LoadType`, `BaseForce`, `SimpleForce`, `Force2D`, `Moment`, `IForce`, `PointLoad`, `DistributedLoad`, `UniformlyDistributedLoad`, `TaperzoidLoad`, `MomentLoad`
-- **Cross Sections**: `BaseSection`, `CrossSectionType`, `CircularCrossSection`, `ICrossSection`, `CustomSection`, `RectangularCrossSection`
-- **Solvers**: `ISolver`, `BaseSolver`, `MCSolver`, `ReactionSolver`, `BeamEventEngine`, `ShearMomentSolver`
+- **Supports**: `BaseSupport`, `supportType`, `PinnedSupport`, `RollerSupport`, `FixedSupport`
+- **Results**: `ReactionResult`, `DiagramPoint`, `DiagramSegment`, `DiagramResult`, `AnalysisResult`, `AnalysisOptions`, `DiagramType`
+- **Solvers**: `ISolver`, `BaseSolver`, `MCSolver`, `ReactionSolver`, `BeamEventEngine`, `ShearMomentSolver`, `BeamAnalyzer`
 
 ### Planned / Upcoming Exports
 - `DeflectionSolver`
-- `ReactionResult`, `ShearResult`, `MomentResult`, `DiagramResult`, `AnalysisResult`
 
 ---
 

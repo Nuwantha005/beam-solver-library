@@ -117,3 +117,17 @@
   - `.agent/plans/phase-4-piecewise-sfd-bmd-engine.md` (created)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npx tsc --noEmit` passed with 0 errors; all 18 Jest test suites passed (120 tests).
+
+### [2026-08-26] Phase 5: First-Class Structured Result Objects & Diagram Models
+- **Status**: Completed
+- **Summary**: Defined strongly typed, framework-agnostic result data models in `src/results/AnalysisResult.ts` (`ReactionResult`, `DiagramPoint`, `DiagramSegment`, `DiagramResult`, `AnalysisResult`, `AnalysisOptions`); created `BeamAnalyzer` orchestrating reaction solving, analytical SFD/BMD generation, discontinuity limit tagging, and segment polynomial degree identification; added `beam.analyze()` convenience method to `Beam`; added comprehensive unit tests in `test/results/BeamAnalyzer.test.ts`; and updated public exports and documentation.
+- **Files Touched**:
+  - `src/results/AnalysisResult.ts` (created)
+  - `src/solvers/BeamAnalyzer.ts` (created)
+  - `src/objects/beam.ts` (modified)
+  - `src/index.ts` (modified)
+  - `test/results/BeamAnalyzer.test.ts` (created)
+  - `.agent/docs/api-and-conventions.md` (modified)
+  - `.agent/plans/phase-5-structured-results-and-diagrams.md` (created)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: `npx tsc --noEmit` passed with 0 errors; all 19 Jest test suites passed (124 tests).
