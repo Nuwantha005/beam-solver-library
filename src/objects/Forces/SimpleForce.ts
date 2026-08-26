@@ -37,6 +37,10 @@ class SimpleForce extends BaseForce {
     return this.magnitude;
   }
 
+  getTotalVerticalForce(): number {
+    return this.angle >= 0 ? this.magnitude : -this.magnitude;
+  }
+
   setMagnitude(magnitude: number): void {
     if (magnitude > 0) {
       this.magnitude = magnitude;

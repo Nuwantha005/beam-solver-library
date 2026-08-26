@@ -69,3 +69,23 @@
   - `.agent/plans/phase-1-foundation-and-models.md` (created)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npx tsc --noEmit` passed with 0 errors; all 14 Jest test suites passed (91 tests).
+
+### [2026-08-26] Phase 2: Unified Load Hierarchy & Beam Integration
+- **Status**: Completed
+- **Summary**: Defined `ILoad` interface and `LoadType` enum; integrated `ILoad` across `BaseForce`, `PointLoad`, `DistributedLoad`, `UniformlyDistributedLoad`, and `TaperzoidLoad`; implemented `MomentLoad` for applied concentrated moments; upgraded `Beam` to store and manage all load types with span boundary validation (`InvalidGeometryError`); maintained full backwards compatibility for `addForce`/`getForces`; added unit test suites for `DistributedLoad` and `MomentLoad`; and updated public exports and architecture documentation.
+- **Files Touched**:
+  - `src/objects/Forces/Loads/ILoad.ts` (created)
+  - `src/objects/Forces/BaseForce.ts` (modified)
+  - `src/objects/Forces/SimpleForce.ts` (modified)
+  - `src/objects/Forces/Loads/DistributedLoad.ts` (modified)
+  - `src/objects/Forces/Loads/MomentLoad.ts` (created)
+  - `src/objects/beam.ts` (modified)
+  - `src/index.ts` (modified)
+  - `test/objects/Forces/Loads/DistributedLoad.test.ts` (created)
+  - `test/objects/Forces/Loads/MomentLoad.test.ts` (created)
+  - `test/objects/beam.test.ts` (modified)
+  - `.agent/docs/architecture.md` (modified)
+  - `.agent/docs/api-and-conventions.md` (modified)
+  - `.agent/plans/phase-2-unified-load-hierarchy.md` (created)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: `npx tsc --noEmit` passed with 0 errors; all 16 Jest test suites passed (97 tests).

@@ -4,6 +4,7 @@ export * from "./objects/beam";
 // Error Classes
 export * from "./errors/BeamErrors";
 
+export * from "./objects/Forces/Loads/ILoad";
 export { default as BaseForce } from "./objects/Forces/BaseForce";
 export { default as SimpleForce } from "./objects/Forces/SimpleForce";
 export { default as Force2D } from "./objects/Forces/Force2D";
@@ -13,6 +14,7 @@ export { default as PointLoad } from "./objects/Forces/Loads/PointLoad";
 export { default as DistributedLoad } from "./objects/Forces/Loads/DistributedLoad";
 export { default as UniformlyDistributedLoad } from "./objects/Forces/Loads/UniformlyDistributedLoad";
 export { default as TaperzoidLoad } from "./objects/Forces/Loads/TaperzoidLoad";
+export { default as MomentLoad, MomentLoad as MomentLoadClass } from "./objects/Forces/Loads/MomentLoad";
 
 // Cross Section Exports
 export * from "./objects/crossSections/CrossSection";

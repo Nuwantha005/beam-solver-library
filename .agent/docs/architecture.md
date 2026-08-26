@@ -22,11 +22,10 @@ Beam
  ├── EModulus: number
  ├── CrossSection: BaseSection (RectCross, CircCrossSection, ISection, CustomSection)
  ├── Supports: BaseSupport[] (PinnedSupport, RollerSupport, FixedSupport)
- └── Forces: BaseForce[]
-      ├── Force2D (Concentrated force at angle)
-      ├── SimpleForce (Pure vertical upward/downward force)
-      ├── Moment (Concentrated couple/moment)
-      └── DistributedLoad (PointLoad, UniformlyDistributedLoad, TaperzoidLoad)
+ └── Loads: ILoad[]
+      ├── Point Loads (PointLoad, SimpleForce, Force2D)
+      ├── Distributed Loads (UniformlyDistributedLoad, TaperzoidLoad)
+      └── Moment Loads (MomentLoad, Moment)
 ```
 
 ---
@@ -68,10 +67,11 @@ The standard calculation pipeline processes the beam model through distinct stag
 
 - **`src/objects/beam.ts`**: Central aggregate root representing the physical span, boundary conditions, applied loads, and cross section.
 - **`src/objects/Forces/`**: Force primitives and load abstractions:
-  - `BaseFroce.ts` / `IForce.ts`: Interface and base vector force class with 2D moment resolution.
+  - `BaseForce.ts` / `IForce.ts`: Interface and base vector force class implementing `ILoad`.
   - `SimpleForce.ts`: Constrained 1D vertical force ($y=0$).
+  - `Force2D.ts`: 2D force vector at angle.
   - `Moment.ts`: Concentrated torque/couple ($M$, CW/CCW).
-  - `Loads/`: Distributed loads converted to equivalent point loads and regional contributions.
+  - `Loads/`: `ILoad` interface, `PointLoad`, `DistributedLoad` (`UniformlyDistributedLoad`, `TaperzoidLoad`), and `MomentLoad`.
 - **`src/objects/supports/`**: Support boundary conditions declaring reaction unknowns (Pinned: $R_x, R_y$; Roller: $R_y$; Fixed: $R_x, R_y, M$).
 - **`src/objects/crossSections/`**: Section geometric properties ($A, \bar{y}, I_{xx}, I_{yy}$).
 - **`src/solvers/`**: Numerical & analytical solvers (`BaseSolver`, `MCSolver` for moment-curvature/Macaulay calculations).

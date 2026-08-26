@@ -1,7 +1,8 @@
 import Moment from "./Moment";
 import { IForce } from "./IForce";
+import { ILoad, LoadType } from "./Loads/ILoad";
 
-abstract class BaseForce implements IForce {
+abstract class BaseForce implements IForce, ILoad {
   protected magnitude: number;
   protected angle: number;
   // acting point
@@ -14,6 +15,27 @@ abstract class BaseForce implements IForce {
     this.x = x;
     this.y = y;
   }
+
+  get loadType(): LoadType {
+    return LoadType.POINT;
+  }
+
+  get startLocation(): number {
+    return this.x;
+  }
+
+  get endLocation(): number {
+    return this.x;
+  }
+
+  getTotalVerticalForce(): number {
+    return this.getYComponent();
+  }
+
+  getTotalHorizontalForce(): number {
+    return this.getXComponent();
+  }
+
   // Overload signatures
   getMomentAround(x: number, y: number): Moment;
   getMomentAround(x: number): number;

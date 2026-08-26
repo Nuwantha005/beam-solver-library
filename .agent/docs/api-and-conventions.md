@@ -7,7 +7,7 @@ All consumers of this library import exclusively from [`src/index.ts`](file:///s
 ### Currently Exported Entities
 - **Beam Model**: `Beam`, `BeamType`
 - **Errors**: `BeamError`, `UnstableBeamError`, `IndeterminateBeamError`, `InvalidGeometryError`, `SingularMatrixError`
-- **Forces & Loads**: `BaseForce`, `SimpleForce`, `Force2D`, `Moment`, `IForce`, `PointLoad`, `DistributedLoad`, `UniformlyDistributedLoad`, `TaperzoidLoad`
+- **Forces & Loads**: `ILoad`, `LoadType`, `BaseForce`, `SimpleForce`, `Force2D`, `Moment`, `IForce`, `PointLoad`, `DistributedLoad`, `UniformlyDistributedLoad`, `TaperzoidLoad`, `MomentLoad`
 - **Cross Sections**: `BaseSection`, `CrossSectionType`, `CircularCrossSection`, `ICrossSection`, `CustomSection`, `RectangularCrossSection`
 - **Supports**: `BaseSupport`, `supportType`, `PinnedSupport`, `RollerSupport`, `FixedSupport`
 - **Solvers**: `ISolver`, `BaseSolver`, `MCSolver`

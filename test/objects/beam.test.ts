@@ -6,13 +6,13 @@ import { ISection } from "../../src/objects/crossSections/ISection";
 import { CircularCrossSection } from "../../src/objects/crossSections/CircCrossSection";
 import { SimpleForce } from "../../src";
 import { PinnedSupport } from "../../src";
+import { RollerSupport } from "../../src";
+import { FixedSupport } from "../../src";
 import { BeamType } from "../../src/objects/beam";
-
-/*
-###############################################
-            Base Class Testing
-###############################################
-*/
+import PointLoad from "../../src/objects/Forces/Loads/PointLoad";
+import UniformlyDistributedLoad from "../../src/objects/Forces/Loads/UniformlyDistributedLoad";
+import MomentLoad from "../../src/objects/Forces/Loads/MomentLoad";
+import { InvalidGeometryError } from "../../src/errors/BeamErrors";
 
 describe("Beam - base class tests", () => {
   test("Length getter should return the correct value", () => {
@@ -26,29 +26,27 @@ describe("Beam - base class tests", () => {
     expect(beam.Length).toBe(15);
   });
 
-  test("Setting negative length should throw an error", () => {
+  test("Setting negative or zero length should throw InvalidGeometryError", () => {
+    expect(() => new Beam(0)).toThrow(InvalidGeometryError);
+    expect(() => new Beam(-5)).toThrow(InvalidGeometryError);
     const beam = new Beam(10);
     expect(() => {
       beam.Length = -5;
-    }).toThrow("Length must be positive.");
+    }).toThrow(InvalidGeometryError);
   });
 
-  test("EModulus getter should return the correct value", () => {
+  test("EModulus getter and setter should operate correctly", () => {
     const beam = new Beam(10, 100);
     expect(beam.EModulus).toBe(100);
-  });
-
-  test("EModulus setter should update the EModulus", () => {
-    const beam = new Beam(10, 100);
     beam.EModulus = 200;
     expect(beam.EModulus).toBe(200);
   });
 
-  test("Setting negative EModulus should throw an error", () => {
+  test("Setting negative EModulus should throw InvalidGeometryError", () => {
     const beam = new Beam(10, 100);
     expect(() => {
       beam.EModulus = -100;
-    }).toThrow("EModulus must be positive.");
+    }).toThrow(InvalidGeometryError);
   });
 
   describe("Beam: cross section tests", () => {
@@ -80,100 +78,62 @@ describe("Beam - base class tests", () => {
       expect(beam.crossSection.sectionType).toBe(CrossSectionType.Rectangle);
     });
   });
-
-  test("Length setter should update the length", () => {
-    const beam = new Beam(10);
-    beam.Length = 15;
-    expect(beam.Length).toBe(15);
-  });
-
-  test("Setting negative length should throw an error", () => {
-    const beam = new Beam(10);
-    expect(() => {
-      beam.Length = -5;
-    }).toThrow("Length must be positive.");
-  });
-
-  test("EModulus getter should return the correct value", () => {
-    const beam = new Beam(10, 100);
-    expect(beam.EModulus).toBe(100);
-  });
-
-  test("EModulus setter should update the EModulus", () => {
-    const beam = new Beam(10, 100);
-    beam.EModulus = 200;
-    expect(beam.EModulus).toBe(200);
-  });
 });
 
-describe("Beam: cross section tests", () => {
-  test("Custom cross section should be set correctly", () => {
-    const beam = new Beam(10, 100);
-    const customSection = new CustomSection(20, 30, 40);
-    beam.crossSection = customSection;
-    expect(beam.crossSection.sectionType).toBe(CrossSectionType.Custom);
-  });
-
-  test("ISection cross section should be set correctly", () => {
-    const beam = new Beam(10, 100);
-    const iSection = new ISection(10, 20, 2, 1);
-    beam.crossSection = iSection;
-    expect(beam.crossSection.sectionType).toBe(CrossSectionType.ISection);
-  });
-
-  test("Circular cross section should be set correctly", () => {
-    const beam = new Beam(10, 100);
-    const circularSection = new CircularCrossSection(5);
-    beam.crossSection = circularSection;
-    expect(beam.crossSection.sectionType).toBe(CrossSectionType.Circular);
-  });
-});
-
-/*
-###############################################
-            Forces Testing
-###############################################
-*/
-describe("Beam: force tests", () => {
+describe("Beam: unified load tests", () => {
   let beam: Beam;
+
   beforeEach(() => {
     beam = new Beam(10, 100);
   });
 
-  test("Adding a force should store it in the beam", () => {
+  test("Adding diverse load types into Beam", () => {
+    const pointLoad = new PointLoad(20, 3);
+    const udl = new UniformlyDistributedLoad(4, 8, 10);
+    const moment = new MomentLoad(15, "ccw", 2);
+
+    beam.addLoad(pointLoad);
+    beam.addLoad(udl);
+    beam.addLoad(moment);
+
+    expect(beam.getLoads()).toHaveLength(3);
+    expect(beam.getPointLoads()).toEqual([pointLoad]);
+    expect(beam.getDistributedLoads()).toEqual([udl]);
+    expect(beam.getAppliedMoments()).toEqual([moment]);
+  });
+
+  test("Setting loads replaces existing loads", () => {
+    const p1 = new PointLoad(10, 2);
+    const p2 = new PointLoad(20, 5);
+    beam.setLoads([p1, p2]);
+    expect(beam.getLoads()).toEqual([p1, p2]);
+  });
+
+  test("Boundary validation throws InvalidGeometryError for out-of-bounds loads", () => {
+    expect(() => beam.addLoad(new PointLoad(10, -1))).toThrow(
+      InvalidGeometryError
+    );
+    expect(() => beam.addLoad(new PointLoad(10, 12))).toThrow(
+      InvalidGeometryError
+    );
+    expect(() => beam.addLoad(new UniformlyDistributedLoad(2, 15, 5))).toThrow(
+      InvalidGeometryError
+    );
+    expect(() => beam.addLoad(new UniformlyDistributedLoad(6, 4, 5))).toThrow(
+      InvalidGeometryError
+    );
+  });
+
+  test("Backwards compatibility for forces methods", () => {
     const force = new SimpleForce(50, "up", 5);
     beam.addForce(force);
     expect(beam.getForces()).toContain(force);
-  });
 
-  test("Setting forces should replace existing forces", () => {
-    const force1 = new SimpleForce(50, "up", 5);
-    const force2 = new SimpleForce(30, "down", 7);
-    beam.setForces([force1, force2]);
-    expect(beam.getForces()).toEqual([force1, force2]);
-  });
-
-  test("Getting forces should return all added forces", () => {
-    const force1 = new SimpleForce(50, "up", 5);
-    const force2 = new SimpleForce(30, "down", 7);
-    beam.addForce(force1);
-    beam.addForce(force2);
-    expect(beam.getForces()).toEqual([force1, force2]);
-  });
-
-  test("Removing forces should clear all forces", () => {
-    const force = new SimpleForce(50, "up", 5);
-    beam.addForce(force);
     beam.removeForces();
     expect(beam.getForces()).toEqual([]);
   });
 });
 
-/*
-###############################################
-            Supports Testing
-###############################################
-*/
 describe("Beam: support tests", () => {
   let beam: Beam;
   let pinnedSupport: PinnedSupport;
@@ -194,36 +154,53 @@ describe("Beam: support tests", () => {
     expect(beam.getSupports()).toEqual([pinnedSupport, anotherPinnedSupport]);
   });
 
-  test("Getting supports should return all added supports", () => {
-    const anotherPinnedSupport = new PinnedSupport(7);
-    beam.addSupport(pinnedSupport);
-    beam.addSupport(anotherPinnedSupport);
-    expect(beam.getSupports()).toEqual([pinnedSupport, anotherPinnedSupport]);
-  });
-
   test("Removing supports should clear all supports", () => {
     beam.addSupport(pinnedSupport);
     beam.removeSupports();
     expect(beam.getSupports()).toEqual([]);
   });
 
+  test("Out-of-bounds support throws InvalidGeometryError", () => {
+    expect(() => beam.addSupport(new PinnedSupport(-1))).toThrow(
+      InvalidGeometryError
+    );
+    expect(() => beam.addSupport(new PinnedSupport(12))).toThrow(
+      InvalidGeometryError
+    );
+  });
+
   test("Testing for beamType -> Simply Supported", () => {
-    beam = new Beam(10); // Create a beam of length 10
-    const startSupport = new PinnedSupport(0); // Add a pinned support at position 0
+    beam = new Beam(10);
+    const startSupport = new PinnedSupport(0);
     const endSupport = new PinnedSupport(10);
 
     beam.setSupports([startSupport, endSupport]);
     expect(beam.BeamType).toBe(BeamType.SIMPLY_SUPPORTED);
   });
 
+  test("Testing for beamType -> Roller Supported", () => {
+    beam = new Beam(10);
+    const startSupport = new PinnedSupport(0);
+    const endSupport = new RollerSupport(10);
+
+    beam.setSupports([startSupport, endSupport]);
+    expect(beam.BeamType).toBe(BeamType.ROLLER_SUPPORTED);
+  });
+
+  test("Testing for beamType -> Cantilever", () => {
+    beam = new Beam(10);
+    const fixedSupport = new FixedSupport(0);
+    beam.setSupports([fixedSupport]);
+    expect(beam.BeamType).toBe(BeamType.CANTELIVER);
+  });
+
   test("Testing for beamType -> Continuous", () => {
-    beam = new Beam(10); // Create a beam of length 10
-    const startSupport = new PinnedSupport(0); // Add a pinned support at position 0
+    beam = new Beam(10);
+    const startSupport = new PinnedSupport(0);
     const midSupport = new PinnedSupport(5);
     const endSupport = new PinnedSupport(10);
 
-    beam.setSupports([startSupport, midSupport]);
-    beam.addSupport(endSupport);
+    beam.setSupports([startSupport, midSupport, endSupport]);
     expect(beam.BeamType).toBe(BeamType.CONTINUOUS);
   });
 });
