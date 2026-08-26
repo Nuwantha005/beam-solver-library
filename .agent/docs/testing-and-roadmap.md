@@ -13,7 +13,9 @@ test/
 │   │   ├── SimpleForce.test.ts
 │   │   ├── Moment.test.ts
 │   │   └── Loads/
-│   │       └── PointLoad.test.ts
+│   │       ├── PointLoad.test.ts
+│   │       ├── DistributedLoad.test.ts
+│   │       └── MomentLoad.test.ts
 │   ├── crossSections/
 │   │   ├── CircCrossSection.test.ts
 │   │   ├── CustomSection.test.ts
@@ -21,49 +23,43 @@ test/
 │   │   └── RectCross.test.ts
 │   └── supports/
 │       ├── PinnedSupport.test.ts
-│       └── RollerSupport.test.ts
-└── solvers/
-    └── MCSolver.test.ts
+│       ├── RollerSupport.test.ts
+│       └── FixedSupport.test.ts
+├── errors/
+│   └── BeamErrors.test.ts
+├── results/
+│   └── BeamAnalyzer.test.ts
+├── solvers/
+│   ├── ReactionSolver.test.ts
+│   ├── ShearMomentSolver.test.ts
+│   ├── DeflectionSolver.test.ts
+│   └── MCSolver.test.ts
+└── benchmarks/
+    └── CanonicalBenchmarks.test.ts
 ```
 
 ---
 
 ## 2. Standard Analytical Verification Benchmarks
 
-When implementing or validating solvers, use canonical analytical test problems:
+The automated benchmark suite (`test/benchmarks/CanonicalBenchmarks.test.ts`) verifies 7 canonical analytical problems against closed-form textbook solutions:
 
-### Benchmark 1: Simply Supported Beam with Midspan Point Load
-- **Length**: $L$, **Load**: $P$ downward at $x = L/2$.
-- **Reactions**: $R_A = R_B = P/2$.
-- **Max Shear**: $V_{max} = P/2$.
-- **Max Moment**: $M_{max} = \frac{P L}{4}$ at $x = L/2$.
-- **Max Deflection**: $\delta_{max} = \frac{P L^3}{48 E I}$ at $x = L/2$.
-
-### Benchmark 2: Simply Supported Beam with Uniformly Distributed Load
-- **Length**: $L$, **Load**: $w$ downward across full span $[0, L]$.
-- **Reactions**: $R_A = R_B = \frac{w L}{2}$.
-- **Max Shear**: $V(0) = \frac{w L}{2}$, $V(L) = -\frac{w L}{2}$.
-- **Max Moment**: $M_{max} = \frac{w L^2}{8}$ at $x = L/2$.
-- **Max Deflection**: $\delta_{max} = \frac{5 w L^4}{384 E I}$ at $x = L/2$.
-
-### Benchmark 3: Cantilever Beam with Tip Point Load
-- **Length**: $L$, Fixed at $x=0$, Load $P$ downward at $x = L$.
-- **Reactions**: $R_y = P$, $M_{wall} = -P L$.
-- **Max Moment**: $|M| = P L$ at $x = 0$.
-- **Max Deflection**: $\delta_{max} = \frac{P L^3}{3 E I}$ at $x = L$.
+1. **Benchmark 1**: Simply Supported Beam with Asymmetric Point Load ($M_{max} = \frac{P a b}{L}$, $v(a) = -\frac{P a^2 b^2}{3 E I L}$).
+2. **Benchmark 2**: Simply Supported Beam with Full UDL ($M_{max} = \frac{w L^2}{8}$, $v_{max} = -\frac{5 w L^4}{384 E I}$).
+3. **Benchmark 3**: Simply Supported Beam with Triangular Load ($M_{max} = \frac{w_0 L^2}{9 \sqrt{3}}$ at $x = L/\sqrt{3}$).
+4. **Benchmark 4**: Cantilever Beam with Tip Point Load ($M_{wall} = -P L$, $v_{tip} = -\frac{P L^3}{3 E I}$, $\theta_{tip} = -\frac{P L^2}{2 E I}$).
+5. **Benchmark 5**: Cantilever Beam with Full UDL ($M_{wall} = -\frac{w L^2}{2}$, $v_{tip} = -\frac{w L^4}{8 E I}$).
+6. **Benchmark 6**: Overhanging Beam with Symmetric Overhangs & Midspan Loading.
+7. **Benchmark 7**: Multi-Load Beam (Point Load + UDL + Concentrated Couple).
 
 ---
 
-## 3. Implementation Roadmap
+## 3. Project Roadmap Status
 
-1. **Phase 1 — Core Reaction Solver**:
-   - Implement generalized equilibrium matrix solver $[A]\{R\} = \{b\}$ for determinate systems (Pin + Roller, Cantilever Fixed).
-   - Set reactions onto support objects.
-2. **Phase 2 — Analytical Piecewise SFD & BMD Engine**:
-   - Event collector for all critical positions ($x$ coordinates of supports, point loads, distributed load starts/ends).
-   - Evaluate exact $V(x)$ and $M(x)$ equations per segment.
-   - Extract extrema and zero-crossings (locations where $V(x)=0 \implies M_{max}$).
-3. **Phase 3 — Moment-Curvature & Macaulay Deflection Solver**:
-   - Finish `MCSolver` or integrate Macaulay singularity function solver for continuous deflection $v(x)$ curves.
-4. **Phase 4 — Distributed & Trapezoidal Load Integration**:
-   - Full support for `UniformlyDistributedLoad` and `TaperzoidLoad` in the equilibrium and piecewise SFD/BMD calculations.
+- [x] **Phase 1**: Foundation Refactoring, Error Hierarchy, and Support Model Completion
+- [x] **Phase 2**: Unified Load Hierarchy (`ILoad`, `MomentLoad`, `DistributedLoad`) & Beam Integration
+- [x] **Phase 3**: Generalized Matrix Equilibrium Reaction Solver ($[A]\{R\} = \{b\}$)
+- [x] **Phase 4**: Piecewise Analytical SFD & BMD Calculation Engine (`BeamEventEngine`, `ShearMomentSolver`)
+- [x] **Phase 5**: First-Class Structured Result Objects & Diagram Models (`AnalysisResult`, `BeamAnalyzer`)
+- [x] **Phase 6**: Deflection Solver & Elastic Curve Engine ($EI v'' = M$)
+- [x] **Phase 7**: Canonical Analytical Benchmark Verification Suite (`CanonicalBenchmarks`)
