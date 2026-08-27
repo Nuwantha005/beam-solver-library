@@ -7,6 +7,7 @@ exports.FunctionLoad = void 0;
 const DistributedLoad_1 = __importDefault(require("./DistributedLoad"));
 const PointLoad_1 = __importDefault(require("./PointLoad"));
 const Moment_1 = __importDefault(require("../Moment"));
+const ILoad_1 = require("./ILoad");
 // 16-point Gauss-Legendre quadrature nodes and weights on [-1, 1]
 const GAUSS_POINTS_16 = [
     { x: 0.09501250983763744, w: 0.1894506104550685 },
@@ -46,6 +47,9 @@ class FunctionLoad extends DistributedLoad_1.default {
         super(startLocation, endLocation);
         this._loadFn = loadFn;
         this._expression = options === null || options === void 0 ? void 0 : options.expression;
+    }
+    get loadType() {
+        return ILoad_1.LoadType.DISTRIBUTED;
     }
     get loadFn() {
         return this._loadFn;

@@ -1,6 +1,7 @@
 import DistributedLoad from "./DistributedLoad";
 import PointLoad from "./PointLoad";
 import Moment from "../Moment";
+import { LoadType } from "./ILoad";
 export type LoadFunction = (x: number, localX?: number) => number;
 export interface FunctionLoadOptions {
     expression?: string;
@@ -9,6 +10,7 @@ export declare class FunctionLoad extends DistributedLoad {
     private _loadFn;
     private _expression?;
     constructor(startLocation: number, endLocation: number, loadFn: LoadFunction, options?: FunctionLoadOptions);
+    get loadType(): LoadType;
     get loadFn(): LoadFunction;
     set loadFn(fn: LoadFunction);
     get expression(): string | undefined;

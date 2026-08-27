@@ -59,6 +59,10 @@ export class FunctionLoad extends DistributedLoad {
     this._expression = options?.expression;
   }
 
+  get loadType(): LoadType {
+    return LoadType.DISTRIBUTED;
+  }
+
   get loadFn(): LoadFunction {
     return this._loadFn;
   }
