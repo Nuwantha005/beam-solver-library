@@ -94,7 +94,15 @@ export class BeamAnalyzer {
       for (let i = 0; i <= samplesPerSegment; i++) {
         const t = i / samplesPerSegment;
         const x = interval.start + t * interval.length;
-        const v = smSolver.getShearAt(x);
+        
+        let v: number;
+        if (i === 0) {
+          v = smSolver.getShearAt(x, "right");
+        } else if (i === samplesPerSegment) {
+          v = smSolver.getShearAt(x, "left");
+        } else {
+          v = smSolver.getShearAt(x);
+        }
 
         const point: DiagramPoint = {
           x,
@@ -148,7 +156,15 @@ export class BeamAnalyzer {
       for (let i = 0; i <= samplesPerSegment; i++) {
         const t = i / samplesPerSegment;
         const x = interval.start + t * interval.length;
-        const m = smSolver.getMomentAt(x);
+        
+        let m: number;
+        if (i === 0) {
+          m = smSolver.getMomentAt(x, "right");
+        } else if (i === samplesPerSegment) {
+          m = smSolver.getMomentAt(x, "left");
+        } else {
+          m = smSolver.getMomentAt(x);
+        }
 
         const point: DiagramPoint = {
           x,

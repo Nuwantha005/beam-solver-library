@@ -165,3 +165,12 @@
   - `dist/src/index.js` (recompiled)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: `npm test` passed (21 test suites, 136 tests); `npx tsc` compiled cleanly.
+
+### [2026-08-27] Fix Interval Discontinuity Boundary Evaluation in BeamAnalyzer
+- **Status**: Completed
+- **Summary**: Corrected `BeamAnalyzer.ts` interval sample evaluation. Previously, `getShearAt(interval.end)` evaluated with `side = "exact"`, including concentrated loads at the right boundary and prematurely jumping to $V(x_{\text{end}}^+)$ before the interval ended. Updated sampling to evaluate $V(x_{\text{start}}^+)$ at interval start, $V(x_{\text{end}}^-)$ at interval end, and similarly for $M(x)$. This eliminates spurious zig-zag and slanted vertical artifacts in SVG diagram paths.
+- **Files Touched**:
+  - `src/solvers/BeamAnalyzer.ts` (modified)
+  - `dist/` (recompiled)
+  - `.agent/TASK_LOG.md` (modified)
+- **Verification**: All 21 Jest test suites (136 tests) passing; `npx tsc` compiled cleanly.
