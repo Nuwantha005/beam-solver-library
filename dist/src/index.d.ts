@@ -10,6 +10,8 @@ export { default as PointLoad } from "./objects/Forces/Loads/PointLoad";
 export { default as DistributedLoad } from "./objects/Forces/Loads/DistributedLoad";
 export { default as UniformlyDistributedLoad } from "./objects/Forces/Loads/UniformlyDistributedLoad";
 export { default as TaperzoidLoad } from "./objects/Forces/Loads/TaperzoidLoad";
+export { default as FunctionLoad, FunctionLoad as FunctionLoadClass } from "./objects/Forces/Loads/FunctionLoad";
+export type { LoadFunction, FunctionLoadOptions } from "./objects/Forces/Loads/FunctionLoad";
 export { default as MomentLoad, MomentLoad as MomentLoadClass } from "./objects/Forces/Loads/MomentLoad";
 export * from "./objects/crossSections/CrossSection";
 export { default as CircularCrossSection } from "./objects/crossSections/CircCrossSection";

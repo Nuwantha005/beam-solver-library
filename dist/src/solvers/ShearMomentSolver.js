@@ -8,6 +8,7 @@ const ReactionSolver_1 = __importDefault(require("./ReactionSolver"));
 const BeamEventEngine_1 = __importDefault(require("./BeamEventEngine"));
 const UniformlyDistributedLoad_1 = __importDefault(require("../objects/Forces/Loads/UniformlyDistributedLoad"));
 const TaperzoidLoad_1 = __importDefault(require("../objects/Forces/Loads/TaperzoidLoad"));
+const FunctionLoad_1 = __importDefault(require("../objects/Forces/Loads/FunctionLoad"));
 const MomentLoad_1 = __importDefault(require("../objects/Forces/Loads/MomentLoad"));
 const ILoad_1 = require("../objects/Forces/Loads/ILoad");
 class ShearMomentSolver {
@@ -67,6 +68,9 @@ class ShearMomentSolver {
                         shear += -activeLoadMag;
                     }
                 }
+            }
+            else if (load instanceof FunctionLoad_1.default) {
+                shear += load.getShearContribution(clampedX);
             }
         });
         return Math.abs(shear) < 1e-10 ? 0 : shear;
@@ -129,6 +133,9 @@ class ShearMomentSolver {
                         moment += -(rectMag * rectArm + triMag * triArm);
                     }
                 }
+            }
+            else if (load instanceof FunctionLoad_1.default) {
+                moment += load.getMomentContribution(clampedX);
             }
             else if (load instanceof MomentLoad_1.default) {
                 const mx = load.startLocation;

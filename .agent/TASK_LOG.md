@@ -174,3 +174,19 @@
   - `dist/` (recompiled)
   - `.agent/TASK_LOG.md` (modified)
 - **Verification**: All 21 Jest test suites (136 tests) passing; `npx tsc` compiled cleanly.
+
+### [2026-08-27] Implement Arbitrary Distributed Load Support (FunctionLoad)
+- **Status**: Completed
+- **Summary**: Created `FunctionLoad` extending `DistributedLoad` with 16-point Gauss-Legendre numerical quadrature to integrate arbitrary mathematical function profiles $w(x) = f(x)$; integrated `FunctionLoad` in `ShearMomentSolver` and `BeamAnalyzer`; added static factory `FunctionLoad.fromExpression()` for string expressions; added unit tests verifying uniform, linear, parabolic, and sinusoidal half-wave distributions against closed-form analytical solutions; and recompiled `dist/`.
+- **Files Touched**:
+  - `src/objects/Forces/Loads/FunctionLoad.ts` (created)
+  - `src/solvers/ShearMomentSolver.ts` (modified)
+  - `src/solvers/BeamAnalyzer.ts` (modified)
+  - `src/index.ts` (modified)
+  - `test/objects/Forces/Loads/FunctionLoad.test.ts` (created)
+  - `.agent/docs/api-and-conventions.md` (modified)
+  - `.agent/docs/architecture.md` (modified)
+  - `.agent/plans/arbitrary-distributed-loads.md` (created)
+  - `.agent/TASK_LOG.md` (modified)
+  - `dist/` (recompiled)
+- **Verification**: All 22 Jest test suites (141 tests) passed; `npx tsc --noEmit` passed with 0 errors.

@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeflectionSolverClass = exports.DeflectionSolver = exports.BeamAnalyzerClass = exports.BeamAnalyzer = exports.ShearMomentSolverClass = exports.ShearMomentSolver = exports.BeamEventEngineClass = exports.BeamEventEngine = exports.ReactionSolverClass = exports.ReactionSolver = exports.FixedSupport = exports.RollerSupport = exports.PinnedSupport = exports.RectangularCrossSection = exports.CustomSection = exports.CircularCrossSection = exports.MomentLoadClass = exports.MomentLoad = exports.TaperzoidLoad = exports.UniformlyDistributedLoad = exports.DistributedLoad = exports.PointLoad = exports.Moment = exports.Force2D = exports.SimpleForce = exports.BaseForce = void 0;
+exports.DeflectionSolverClass = exports.DeflectionSolver = exports.BeamAnalyzerClass = exports.BeamAnalyzer = exports.ShearMomentSolverClass = exports.ShearMomentSolver = exports.BeamEventEngineClass = exports.BeamEventEngine = exports.ReactionSolverClass = exports.ReactionSolver = exports.FixedSupport = exports.RollerSupport = exports.PinnedSupport = exports.RectangularCrossSection = exports.CustomSection = exports.CircularCrossSection = exports.MomentLoadClass = exports.MomentLoad = exports.FunctionLoadClass = exports.FunctionLoad = exports.TaperzoidLoad = exports.UniformlyDistributedLoad = exports.DistributedLoad = exports.PointLoad = exports.Moment = exports.Force2D = exports.SimpleForce = exports.BaseForce = void 0;
 // Core Beam Model
 __exportStar(require("./objects/beam"), exports);
 // Error Classes
@@ -39,6 +39,9 @@ var UniformlyDistributedLoad_1 = require("./objects/Forces/Loads/UniformlyDistri
 Object.defineProperty(exports, "UniformlyDistributedLoad", { enumerable: true, get: function () { return __importDefault(UniformlyDistributedLoad_1).default; } });
 var TaperzoidLoad_1 = require("./objects/Forces/Loads/TaperzoidLoad");
 Object.defineProperty(exports, "TaperzoidLoad", { enumerable: true, get: function () { return __importDefault(TaperzoidLoad_1).default; } });
+var FunctionLoad_1 = require("./objects/Forces/Loads/FunctionLoad");
+Object.defineProperty(exports, "FunctionLoad", { enumerable: true, get: function () { return __importDefault(FunctionLoad_1).default; } });
+Object.defineProperty(exports, "FunctionLoadClass", { enumerable: true, get: function () { return FunctionLoad_1.FunctionLoad; } });
 var MomentLoad_1 = require("./objects/Forces/Loads/MomentLoad");
 Object.defineProperty(exports, "MomentLoad", { enumerable: true, get: function () { return __importDefault(MomentLoad_1).default; } });
 Object.defineProperty(exports, "MomentLoadClass", { enumerable: true, get: function () { return MomentLoad_1.MomentLoad; } });

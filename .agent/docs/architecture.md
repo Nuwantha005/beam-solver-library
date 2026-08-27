@@ -24,7 +24,7 @@ Beam
  ├── Supports: BaseSupport[] (PinnedSupport, RollerSupport, FixedSupport)
  └── Loads: ILoad[]
       ├── Point Loads (PointLoad, SimpleForce, Force2D)
-      ├── Distributed Loads (UniformlyDistributedLoad, TaperzoidLoad)
+      ├── Distributed Loads (UniformlyDistributedLoad, TaperzoidLoad, FunctionLoad)
       └── Moment Loads (MomentLoad, Moment)
 ```
 

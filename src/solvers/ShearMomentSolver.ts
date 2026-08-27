@@ -3,6 +3,7 @@ import ReactionSolver from "./ReactionSolver";
 import BeamEventEngine from "./BeamEventEngine";
 import UniformlyDistributedLoad from "../objects/Forces/Loads/UniformlyDistributedLoad";
 import TaperzoidLoad from "../objects/Forces/Loads/TaperzoidLoad";
+import FunctionLoad from "../objects/Forces/Loads/FunctionLoad";
 import MomentLoad from "../objects/Forces/Loads/MomentLoad";
 import { LoadType } from "../objects/Forces/Loads/ILoad";
 
@@ -76,6 +77,8 @@ export class ShearMomentSolver {
             shear += -activeLoadMag;
           }
         }
+      } else if (load instanceof FunctionLoad) {
+        shear += load.getShearContribution(clampedX);
       }
     });
 
@@ -142,6 +145,8 @@ export class ShearMomentSolver {
             moment += -(rectMag * rectArm + triMag * triArm);
           }
         }
+      } else if (load instanceof FunctionLoad) {
+        moment += load.getMomentContribution(clampedX);
       } else if (load instanceof MomentLoad) {
         const mx = load.startLocation;
         const isIncluded =

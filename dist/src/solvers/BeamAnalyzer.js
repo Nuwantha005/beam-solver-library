@@ -10,6 +10,7 @@ const DeflectionSolver_1 = __importDefault(require("./DeflectionSolver"));
 const BeamEventEngine_1 = __importDefault(require("./BeamEventEngine"));
 const UniformlyDistributedLoad_1 = __importDefault(require("../objects/Forces/Loads/UniformlyDistributedLoad"));
 const TaperzoidLoad_1 = __importDefault(require("../objects/Forces/Loads/TaperzoidLoad"));
+const FunctionLoad_1 = __importDefault(require("../objects/Forces/Loads/FunctionLoad"));
 class BeamAnalyzer {
     /**
      * Executes a complete structural analysis on the provided Beam model,
@@ -53,11 +54,15 @@ class BeamAnalyzer {
         // Helper: Determine polynomial degrees on an interval [x1, x2]
         const getIntervalDegrees = (x1, x2) => {
             const mid = (x1 + x2) / 2;
+            let hasFunction = false;
             let hasTrapezoid = false;
             let hasUDL = false;
             beam.getLoads().forEach((l) => {
                 if (mid >= l.startLocation && mid <= l.endLocation) {
-                    if (l instanceof TaperzoidLoad_1.default) {
+                    if (l instanceof FunctionLoad_1.default) {
+                        hasFunction = true;
+                    }
+                    else if (l instanceof TaperzoidLoad_1.default) {
                         hasTrapezoid = true;
                     }
                     else if (l instanceof UniformlyDistributedLoad_1.default) {
@@ -65,6 +70,9 @@ class BeamAnalyzer {
                     }
                 }
             });
+            if (hasFunction) {
+                return { shearDegree: -1, momentDegree: -1, deflectionDegree: -1 };
+            }
             if (hasTrapezoid) {
                 return { shearDegree: 2, momentDegree: 3, deflectionDegree: 5 };
             }

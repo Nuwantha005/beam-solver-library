@@ -13,6 +13,7 @@ import DeflectionSolver from "./DeflectionSolver";
 import BeamEventEngine from "./BeamEventEngine";
 import UniformlyDistributedLoad from "../objects/Forces/Loads/UniformlyDistributedLoad";
 import TaperzoidLoad from "../objects/Forces/Loads/TaperzoidLoad";
+import FunctionLoad from "../objects/Forces/Loads/FunctionLoad";
 
 export class BeamAnalyzer {
   /**
@@ -61,12 +62,15 @@ export class BeamAnalyzer {
     // Helper: Determine polynomial degrees on an interval [x1, x2]
     const getIntervalDegrees = (x1: number, x2: number) => {
       const mid = (x1 + x2) / 2;
+      let hasFunction = false;
       let hasTrapezoid = false;
       let hasUDL = false;
 
       beam.getLoads().forEach((l) => {
         if (mid >= l.startLocation && mid <= l.endLocation) {
-          if (l instanceof TaperzoidLoad) {
+          if (l instanceof FunctionLoad) {
+            hasFunction = true;
+          } else if (l instanceof TaperzoidLoad) {
             hasTrapezoid = true;
           } else if (l instanceof UniformlyDistributedLoad) {
             hasUDL = true;
@@ -74,6 +78,9 @@ export class BeamAnalyzer {
         }
       });
 
+      if (hasFunction) {
+        return { shearDegree: -1, momentDegree: -1, deflectionDegree: -1 };
+      }
       if (hasTrapezoid) {
         return { shearDegree: 2, momentDegree: 3, deflectionDegree: 5 };
       }
